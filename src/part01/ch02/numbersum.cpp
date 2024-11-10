@@ -1,13 +1,13 @@
 //
 // Created by Emma on 2024/11/10.
 //
-#include <iostream>
-#include <cstdio>
+#include<iostream>
 using namespace std;
 
 int main() {
-    int a, b, c;
+    int a, b, c, s;
     cin >> a >> b >> c;
-    printf("%8d %8d %8d", a, b, c);
+    s = a + b + c;
+    cout << s << endl;
     return 0;
 }

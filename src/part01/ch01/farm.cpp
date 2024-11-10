@@ -9,6 +9,6 @@ int main() {
     s1 = 15 * 20;
     s2 = 20 * 10;
     s3 = (s1 - s2)/(20 - 10);
-    cout << "s = " << s3 << endl;
+    cout << s3 << endl;
     return 0;
 }
