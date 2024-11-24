@@ -16,5 +16,6 @@ int main()
 {
     cout << "Hello world!" << endl;
     cout << "I am Emme!" << endl;
+    cout << int(4.55);
     return 0;
 }
