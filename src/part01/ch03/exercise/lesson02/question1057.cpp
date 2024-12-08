@@ -5,19 +5,19 @@
 using namespace std;
 
 int main() {
-    float num1, num2;
+    int num1, num2;
     char op;
     cin >> num1 >> num2 >> op;
     switch(op) {
         case '+':
             cout << num1 + num2 << endl;
-            break;
+        break;
         case '-':
             cout << num1 - num2 << endl;
-            break;
+        break;
         case '*':
             cout << num1 * num2 << endl;
-            break;
+        break;
         case '/':
             if(num2 != 0) {
                 cout << num1 / num2 << endl;

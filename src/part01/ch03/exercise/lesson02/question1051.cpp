@@ -8,9 +8,9 @@ using namespace std;
 int main() {
     double y, x;
     cin >> x;
-    if(x < 5 && x <= 0) {
+    if(x < 5.0 && x >= 0) {
         y = -x + 2.5;
-    } else if(x <= 5 && x < 10) {
+    } else if(x >= 5.0 && x < 10.0) {
         y = 2 - 1.5 * (x - 3) * (x - 3);
     } else {
         y = x / 2 - 1.5;
