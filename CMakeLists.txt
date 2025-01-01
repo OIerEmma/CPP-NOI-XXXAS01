@@ -18,8 +18,7 @@ foreach(file ${files})
     if (${founded} EQUAL 0)
         # 如果找到了 main 函数，则创建可执行文件
         get_filename_component(name ${file} NAME)
-        add_executable(${name} ${file}
-                src/part01/ch04/exercise/lesson02/question1085.cpp)
+        add_executable(${name} ${file})
         message(\ \ \ \ --\ src/${name}\ will\ be\ compiled\ to\ bin/${name})
     endif()
 endforeach()
