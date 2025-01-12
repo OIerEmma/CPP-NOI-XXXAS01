@@ -7,7 +7,7 @@ using namespace std;
 
 int main()
 {
-    cout << "路虽远，行则将至；事虽难，做则必成！一定拼进清华北大!" << endl;
+    cout << "路虽远，行则将至，事虽难，做则必成！一定拼进清华北大!" << endl;
     return 0;
 }
 /**
