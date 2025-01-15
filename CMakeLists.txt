@@ -9,7 +9,7 @@ add_executable(CPP-NOI-XXXAS01 src/main.cpp)
 file(GLOB_RECURSE files "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
 
 # 将所有的 cpp 文件单独生成可执行文件
-foreach(file ${files})
+foreach (file ${files})
     # 简化的检查：使用 grep 查找 "int main" 字符串
     execute_process(
             COMMAND grep -q "int main" ${file}
@@ -20,5 +20,5 @@ foreach(file ${files})
         get_filename_component(name ${file} NAME)
         add_executable(${name} ${file})
         message(\ \ \ \ --\ src/${name}\ will\ be\ compiled\ to\ bin/${name})
-    endif()
-endforeach()
+    endif ()
+endforeach ()
