@@ -4,11 +4,12 @@
 #include<iostream>
 #include<iomanip>
 #include<cstdio>
+#include<algorithm>
+#include<cmath>
 using namespace std;
 
-int main()
-{
-    cout << "路虽远，行则将至！事虽难，做则必成！一定拼进清华北大！杀上考试的战场！" << endl;
+int main() {
+    cout << "加油" << endl;
     return 0;
 }
 /**

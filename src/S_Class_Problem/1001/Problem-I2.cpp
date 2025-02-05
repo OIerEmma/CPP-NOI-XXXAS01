@@ -1,0 +1,16 @@
+//
+// Created by Emma on 2025/1/21.
+//
+#include<iostream>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    if (n >= 10 && n <= 99) {
+        cout << 1 << endl;
+    } else {
+        cout << 0 << endl;
+    }
+    return 0;
+}
