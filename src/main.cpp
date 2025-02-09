@@ -10,6 +10,7 @@ using namespace std;
 
 int main() {
     cout << "加油" << endl;
+    printf("%d", -34 / 10);
     return 0;
 }
 /**
