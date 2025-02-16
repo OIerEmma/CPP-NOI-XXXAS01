@@ -7,13 +7,27 @@
 using namespace std;
 
 int main() {
-    string n, ans;
+    char m[50];
+    string n;
     cin >> n;
-    for (int i = 0; i < n.size(); i++) {
-        n[i] = char(int(n[i]) - 3);
+    for (int i = n.size() - 1; i >= 0; i--) {
+        m[n.size() - 1 - i] = n[i];
     }
     for (int i = 0; i < n.size(); i++) {
-        n = substr();
+        m[i] = char(int(m[i]) + 3);
+        if (!isalpha(m[i])) {
+            m[i] -= 26;
+        }
+    }
+    for (int i = 0; i < n.size(); i++) {
+        if (m[i] >= 'a' && m[i] <= 'z') {
+            m[i] = char(toupper(m[i]));
+        } else {
+            m[i] = char(tolower(m[i]));
+        }
+    }
+    for (int i = 0; i < n.size(); i++) {
+        cout << m[i];
     }
     return 0;
 }
