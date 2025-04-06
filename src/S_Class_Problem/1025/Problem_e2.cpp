@@ -1,50 +1,36 @@
 //
 // Created by Emma on 2025/1/17.
 //
-#include<iostream>
-#include<cstdio>
 #include<cstring>
+#include<iostream>
 using namespace std;
 
-int mycompare(char * target, char * source) {
-    for (int i = 0; i < strlen(target); i ++) {
-        if (isupper(target[i])) {
-            target[i] = tolower(target[i]);
-        }
-    }
-    for (int i = 0; i < strlen(source); i ++) {
-        if (isupper(source[i])) {
-            source[i] = tolower(source[i]);
-        }
-    }
-    return strcmp(target, source);
-}
-
 int main() {
-    int len = 0;
-    char target[11], word[11];
-    string source[1000001];
-    cin >> target;
-    while (scanf("%s", word) != EOF) {
-        source[len ++] = word;
+    int t = 0, t1 = 0;
+    string s, ss;
+    getline(cin, ss);
+    getline(cin, s);
+    const size_t l = s.size(), l2 = ss.size();
+    for (int i = 0; i <= l - l2; i++) {
+        for (int j = 0; j < l2; j++) {
+            if (toupper(s[i + j]) != toupper(ss[j])) {
+                break;
+            }
+            if (i > 0 && s[i - 1] != ' ') {
+                break;
+            }
+            if (j == l2 - 1 && (s[i + j + 1] == ' ' || j + i == l)) {
+                t++;
+                if (t == 1) {
+                    t1 = i;
+                }
+            }
+        }
     }
-    int ans = 0, index = 0, res = -1;
-    bool flag = false;
-    for (int i = 0; i < len; i ++) {
-        // if (mycompare(target, source) == 0) {
-        //     ans++;
-        //     if (flag == false) {
-        //         res = index;
-        //         flag = true;
-        //     }
-        // }
-        index++;
-    }
-    if (res == -1) {
-        cout << res << endl;
+    if (t == 0) {
+        cout << "-1";
     } else {
-        cout << ans << " " << res << endl;
+        cout << t << " " << t1;
     }
     return 0;
 }
-
