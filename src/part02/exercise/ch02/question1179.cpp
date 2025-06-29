@@ -8,12 +8,10 @@ int main() {
     int n, temp1, temp2, temp3, temp4;
     scanf("%d", &n);
     int chinese[n + 1], math[n + 1], english[n + 1], num[n + 1];
-
     for (int i = 1; i <= n; i++) {
         scanf("%d %d %d", &chinese[i], &math[i], &english[i]);
         num[i] = i;
     }
-
     for (int i = 1, j, k; i <= n; i++) {
         for (j = i - 1; j >= 1; j--) {
             if (chinese[j] + math[j] + english[j] <= chinese[i] + math[i] + english[i]) {
@@ -46,7 +44,6 @@ int main() {
             j--;
         }
     }
-
     for (int i = n; i > n - 5 && i > 0; i--) {
         printf("%d %d\n", num[i], chinese[i] + math[i] + english[i]);
     }
