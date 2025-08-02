@@ -4,8 +4,18 @@
 #include<iostream>
 using namespace std;
 
-int main() {
+int gcd(int x, int y) {
+    if (x % y == 0) {
+        return y;
+    }
+    return y % x;
+}
 
+int lcm(int x, int y) {
+    return x * y / gcd(x, y);
+}
+
+int main() {
     return 0;
 }
 /**
