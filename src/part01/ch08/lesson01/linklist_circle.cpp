@@ -118,29 +118,10 @@ int main() {
     // 插入函数测试
     insert(head, 1, 40);
     print(head);
-    insert(head, 6, 20);
-    print(head);
-    insert(head, 4, 30);
     print(head);
     // 删除函数测试
     delete_node(head, 1);
     print(head);
-    delete_node(head, 7);
-    print(head);
-    delete_node(head, 3);
-    print(head);
-    delete_node(head, 1);
-    print(head);
-    delete_node(head, 1);
-    print(head);
-    // delete_node(head, 1);
-    // print(head);
-    // delete_node(head, 1);
-    // print(head);
-    // delete_node(head, 1);
-    // print(head);
-    // delete_node(head, 1);
-    // print(head);
     // 求长度函数测试
     cout << len(head) << endl;
     return 0;

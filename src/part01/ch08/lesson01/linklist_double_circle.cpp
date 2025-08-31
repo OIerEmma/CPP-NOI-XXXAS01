@@ -127,42 +127,15 @@ int main() {
     }
     // 取出函数测试
     cout << get(head, 1) << endl;
-    cout << get(head, 5) << endl;
-    cout << get(head, 3) << endl;
-    cout << get(head, 6) << endl;
     // 插入函数测试
     insert(head, 1, 40);
     print(head);
-    insert(head, 6, 30);
-    print(head);
-    insert(head, 4, 50);
-    print(head);
-    insert(head, 9, 60);
-    print(head);
     // 删除函数测试
-    delete_node(head, 1);
-    print(head);
-    delete_node(head, 8);
-    print(head);
-    delete_node(head, 4);
-    print(head);
-    delete_node(head, 8);
-    print(head);
-    delete_node(head, 1);
-    print(head);
-    delete_node(head, 1);
+    delete_node(head, 3);
     print(head);
     // 求长度函数测试
     cout << len(head) << endl;
     // 删除函数测试
-    delete_node(head, 1);
-    print(head);
-    delete_node(head, 1);
-    print(head);
-    delete_node(head, 1);
-    print(head);
-    delete_node(head, 1);
-    print(head);
     delete_node(head, 1);
     print(head);
     // 求长度函数测试

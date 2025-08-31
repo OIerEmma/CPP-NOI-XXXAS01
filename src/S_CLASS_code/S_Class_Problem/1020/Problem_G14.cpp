@@ -1,11 +1,11 @@
 //
-// Created by Emma on 2024/12/22.
+// Created by Emma on 2025/8/8.
 //
 #include<iostream>
 using namespace std;
 
 int main() {
-    int money = 0, remain, use, save = 0;
+    long long money = 0, remain, use, save = 0;
     for (int i = 1; i <= 12; i++) {
         cin >> use;
         money += 300;
