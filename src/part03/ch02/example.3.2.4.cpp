@@ -5,17 +5,17 @@
 using namespace std;
 
 const int flag[4][2] = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
-int a[110][110], queue[10010][2], n, m, ans;
+int a[110][110], q[10010][2], n, m, ans;
 bool p[110][110];
 
 void bfs(int x, int y) {
-    int front = 0, rear = 2;
-    queue[1][0] = x;
-    queue[1][1] = y;
-    while (front < rear - 1) {
+    int front = 1, rear = 2;
+    q[1][0] = x;
+    q[1][1] = y;
+    while (front < rear) {
+        x = q[front][0];
+        y = q[front][1];
         front++;
-        x = queue[front][0];
-        y = queue[front][1];
         for (int i = 0; i < 4; i++) {
             int x1 = x + flag[i][0];
             int y1 = y + flag[i][1];
@@ -23,8 +23,9 @@ void bfs(int x, int y) {
                 continue;
             }
             p[x1][y1] = true;
-            queue[rear][0] = x1;
-            queue[rear++][1] = y1;
+            q[rear][0] = x1;
+            q[rear][1] = y1;
+            rear++;
         }
     }
 }
