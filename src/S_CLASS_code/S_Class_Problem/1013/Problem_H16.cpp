@@ -1,0 +1,54 @@
+//
+// Created by Emma on 2025/8/30.
+//
+#include<iostream>
+using namespace std;
+
+const int flag[4][2] = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+int a[110][110], q[10010][2], n, m, ans;
+bool p[110][110];
+
+void bfs(int x, int y) {
+    int front = 1, rear = 2;
+    q[1][0] = x;
+    q[1][1] = y;
+    while (front < rear) {
+        x = q[front][0];
+        y = q[front][1];
+        front++;
+        for (int i = 0; i < 4; i++) {
+            int x1 = x + flag[i][0];
+            int y1 = y + flag[i][1];
+            if (x1 < 1 || y1 < 1 || x1 > n || y1 > m || !a[x1][y1] || p[x1][y1]) {
+                continue;
+            }
+            p[x1][y1] = true;
+            q[rear][0] = x1;
+            q[rear][1] = y1;
+            rear++;
+        }
+    }
+}
+
+int main() {
+    char ch;
+    cin >> n >> m;
+    getchar();
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= m; j++) {
+            scanf("%c", &ch);
+            a[i][j] = ch - '0';
+        }
+        getchar();
+    }
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= m; j++) {
+            if (a[i][j] && !p[i][j]) {
+                ans++;
+                bfs(i, j);
+            }
+        }
+    }
+    cout << ans << endl;
+    return 0;
+}
