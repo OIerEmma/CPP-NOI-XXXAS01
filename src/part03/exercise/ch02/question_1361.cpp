@@ -5,12 +5,11 @@
 using namespace std;
 
 int n, k, front, rear;
-int num[2010], q[2010];
+int num[20010], q[20010];
 int numidx = 0;
-
 struct node {
     int bef, aft;
-} a[2010];
+} a[20];
 
 bool f(int x) {
     for (int i = 1; i <= numidx; i++) {
@@ -29,23 +28,45 @@ int to_int(string s) {
     return ans;
 }
 
-void bfs() {
-    int ans = front = 0, i = 1;
-    rear = 1;
-    string s = to_string(n), t = s;
+int bfs() {
+    int ans = 1;
+    // 初始化
+    q[rear++] = n;
+    num[++numidx] = n;
     while (front < rear) {
-        if (s.find(to_string(a[i].bef)) == string::npos) {
-            continue;
+        // 出队头元素
+        // 遍历执行规则
+        // for {
+        //     元素中查找 a[i].bef；若有则用 a[i].aft 替换并生成新的数
+        // }
+        string s = to_string(q[front++]), t;
+        for (int i = 1; i <= k; i++) {
+            // 先找元素
+            if (s.find(to_string(a[i].bef)) == string::npos) {
+                continue;
+            }
+            int idx = 0, p;
+            for (; ;) {
+                t = s;
+                p = (int) s.find(to_string(a[i].bef), idx);
+                if (p == -1) {
+                    break;
+                }
+                t.replace(p, 1, to_string(a[i].aft));
+                int t2 = to_int(t);
+                if (!f(t2)) {
+                    ans++;
+                    num[++numidx] = t2;
+                    q[rear++] = t2;
+                }
+                if (p + 1 >= s.size()) {
+                    break;
+                }
+                idx = p + 1;
+            }
         }
-        int p = (int) s.find(to_string(a[i].bef));
-        t.replace(p, 1, to_string(a[i].aft));
-        int t2 = to_int(t);
-        if (!f(t2)) {
-            ans++;
-            num[++numidx] = t2;
-        }
-        i++;
     }
+    return ans;
 }
 
 int main() {
@@ -53,5 +74,6 @@ int main() {
     for (int i = 1; i <= k; i++) {
         cin >> a[i].bef >> a[i].aft;
     }
+    cout << bfs() << endl;
     return 0;
 }
