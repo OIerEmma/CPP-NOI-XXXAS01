@@ -24,6 +24,5 @@ int main() {
             break;
         }
     }
-    cout << "此题超纲，先放一放吧~" << endl;
     return 0;
 }
