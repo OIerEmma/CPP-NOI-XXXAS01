@@ -1,24 +1,8 @@
 //
 // Created by Emma on 2024/11/10.
 //
-#include<iostream>
-using namespace std;
 
-int gcd(int x, int y) {
-    if (x % y == 0) {
-        return y;
-    }
-    return y % x;
-}
-
-int lcm(int x, int y) {
-    return x * y / gcd(x, y);
-}
-
-int main() {
-    return 0;
-}
-/**
+/*
  * 推送远程GIT仓库步骤：
  * 1. 编写完代码之后, 打开 Terminal
  * 1.1 输入命令：git diff (查看本地变更内容, 退出请按字母q)
