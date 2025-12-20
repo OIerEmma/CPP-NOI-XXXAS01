@@ -4,22 +4,22 @@
 #include<iostream>
 using namespace std;
 
-char stack[256];
+char stackk[256];
 
 bool check(string s) {
     int i = 0, top = 0;
     while (i < s.size()) {
         if (s[i] == '(' || s[i] == '[') {
-            stack[top++] = s[i];
+            stackk[top++] = s[i];
         }
         if (s[i] == ')' || s[i] == ']') {
             if (top <= 0) {
                 return false;
             }
-            if (s[i] == ')' && stack[top - 1] != '(') {
+            if (s[i] == ')' && stackk[top - 1] != '(') {
                 return false;
             }
-            if (s[i] == ']' && stack[top - 1] != '[') {
+            if (s[i] == ']' && stackk[top - 1] != '[') {
                 return false;
             }
             top--;

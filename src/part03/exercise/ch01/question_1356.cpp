@@ -5,8 +5,8 @@
 using namespace std;
 
 const int MAXLEN = 10001;
-char stk[MAXLEN];
-long long stkn[MAXLEN];
+char stackk[MAXLEN];
+long long stk[MAXLEN];
 int top = -1;
 
 int order(char ch) {

@@ -4,7 +4,7 @@
 #include<iostream>
 using namespace std;
 
-int stack[1010], a[1010];
+int stk[1010], a[1010];
 
 int main() {
     int top = 0, n;
@@ -15,10 +15,10 @@ int main() {
     bool flag = false;
     for (int i = 1, cur = 1; i <= n; i++) {
         while (cur <= a[i]) {
-            stack[++top] = cur;
+            stk[++top] = cur;
             cur++;
         }
-        if (stack[top] == a[i]) {
+        if (stk[top] == a[i]) {
             --top;
         } else {
             cout << "NO" << endl;

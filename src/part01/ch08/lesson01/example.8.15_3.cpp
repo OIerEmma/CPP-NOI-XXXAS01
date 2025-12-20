@@ -13,8 +13,8 @@ int main() {
     int n, m;
     cin >> n >> m;
     head = new node; // 为head申请一个新内存空间
-    head->data = 1; // head头指针里就有真正的数据了,说明此链表为无头链表
-    head->next = nullptr; // 初始化head头指针的下一个
+    head->data = 1; // 为了方便,我们把此链表设为无头链表,所以head头指针里就有真正的数据了
+    head->next = nullptr; // 初始化head头指针的下一个空结点
     r = head; // 初始化尾指针
     for (int i = 2; i <= n; i++) {
         p = new node; // 申请一块新内存空间
@@ -23,7 +23,7 @@ int main() {
         r->next = p;
         r = p; // 更新尾指针
     }
-    r->next = head; // 将链表变为循环链表,就是把尾指针指向头指针
+    r->next = head; // 将链表变为循环链表,就是把尾指针的下一个指向头指针
     r = head;
     for (int i = 1; i <= n; i++) {
         for (int j = 1; j <= m - 2; j++) {
