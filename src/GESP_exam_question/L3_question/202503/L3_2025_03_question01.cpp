@@ -6,17 +6,17 @@ using namespace std;
 
 int main() {
     int x;
-    bool flag = true;
     cin >> x;
-    for (int i = 1; i <= 2025; i++) {
-        if ((x & i) + (x | i) == 2025) {
-            flag = false;
-            cout << i << endl;
+    bool flag = false;
+    for (int y = 0; y < 2025; y++) {
+        if ((x & y) + (x | y) == 2025) {
+            cout << y << endl;
+            flag = true;
             break;
         }
     }
-    if (flag) {
-        cout << -1 << endl;
+    if (!flag) {
+        cout << -1;
     }
     return 0;
 }

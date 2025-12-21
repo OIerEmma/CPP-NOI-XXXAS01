@@ -2,50 +2,36 @@
 // Created by Emma on 2025/6/27.
 //
 #include<iostream>
+#include<map>
+#include<string>
 using namespace std;
 
-int a[110];
-string all_word[110];
+map<string, int> m;
+
+string s_to_lower(string s) {
+    for (int i = 0; i < s.size(); i++) {
+        s[i] = (char)tolower(s[i]);
+    }
+    return s;
+}
 
 int main() {
-    int n, m = 0;
-    // 输入
+    int n;
+    string s;
     cin >> n;
-    string word;
-    for (int i = 0; i < n; i++) {
-        cin >> word;
-        // 将大写全部转为小写(这样便于统计单词数量)
-        for (int j = 0; j < word.size(); j++) {
-            if (word[i] >= 'A' && word[i] <= 'Z') {
-                word[i] += 32;
-            }
-        }
-        // 遍历数组,检查这个单词是否在数组中被统计过
-        bool flag = false;
-        for (int j = 0; j < m; j++) {
-            if (all_word[j] == word) {
-                // 情况1:如果在此单词之前被统计过,直接将此单词的次数加1
-                a[j]++;
-                flag = true;
-                break;
-            }
-        }
-        if (!flag) {
-            // 情况2(没有进情况1的if):如果这个单词之前没有被统计过,也就是说这是一个新单词,就新加一个元素
-            all_word[m++] = word;
-            a[m]++;
+    for (int i = 1; i <= n; i++) {
+        cin >> s;
+        s = s_to_lower(s);
+        m[s]++;
+    }
+    int ans = -1;
+    string res;
+    for (auto p:m) {
+        if (ans < p.second) {
+            ans = p.second;
+            res = p.first;
         }
     }
-    // 寻找出现次数最多的单词
-    int maxx = 0, maxidx = -1;
-    for (int i = 0; i < m; i++) {
-        if (a[i] > maxx) {
-            // 每次发现最大不仅要更新maxx,还要更新maxidx,否则无法输出all_word[maxidx]
-            maxx = a[i];
-            maxidx = i;
-        }
-    }
-    // 输出
-    cout << all_word[maxidx] << endl;
+    cout << res << endl;
     return 0;
 }
