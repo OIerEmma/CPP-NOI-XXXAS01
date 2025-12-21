@@ -4,46 +4,29 @@
 #include<iostream>
 using namespace std;
 
-string str[1010];
+string s[1010];
 
 int main() {
     int n;
     cin >> n;
-    for (int i = 0; i < n; i++) {
-        cin >> str[i];
+    for (int i = 1; i <= n; i++) {
+        cin >> s[i];
     }
-    string s;
-    int two_data, eig_data, ten_data, twe_data;
-    for (int i = 0; i < n; i++) {
-        s = str[i];
-        two_data = 0;eig_data = 0;ten_data = 0;twe_data = 0;
-        int j;
-        bool flag = true;
-        for (j = 0; j < s.size(); j++) {
-            if (s[j] > 'F') {
-                two_data = 0;eig_data = 0;ten_data = 0;twe_data = 0;
-                flag = false;
-                break;
-            }
-            if (s[j] >= 'A' && s[j] <= 'F') {
-                two_data = 0;eig_data = 0;ten_data = 0;twe_data = 1;
-                flag = false;
-                break;
-            }
-            if (s[j] >= '8') {
-                ten_data = 1;twe_data = 1;two_data = 0;eig_data = 0;
-                flag = false;
-                break;
-            }
-            if (s[j] >= '2') {
-                eig_data = 1;ten_data = 1;twe_data = 1;two_data = 0;
-                flag = false;
+    for (int t = 1; t <= n; t++) {
+        bool tw = true, e = true, te = true, si = true;
+        for (int i = 0; i < s[t].size(); i++) {
+            char c = s[t][i];
+            if (c > 'F') {
+                tw = e = te = si = false;
+            } else if (c >= 'A') {
+                tw = e = te = false;
+            } else if (c >= '8' && c <= '9') {
+                tw = e = false;
+            } else if (c >= '2') {
+                tw = false;
             }
         }
-        if (flag) {
-            eig_data = 1;ten_data = 1;twe_data = 1;two_data = 1;
-        }
-        printf("%d %d %d %d\n", two_data, eig_data, ten_data, twe_data);
+        cout << tw << " " << e << " " << te << " " << si << endl;
     }
     return 0;
 }
