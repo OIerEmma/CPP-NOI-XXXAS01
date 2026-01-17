@@ -1,7 +1,17 @@
 //
 // Created by Emma on 2024/11/10.
 //
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
 
+int main() {
+    srand(time(nullptr)); // 初始化种子
+    int num = 1 + rand() % 100; // 生成 1 到 100 之间的随机数
+    std::cout << "1-100 随机数: " << num << endl;
+    return 0;
+}
 /*
  * 推送远程GIT仓库步骤：
  * 1. 编写完代码之后, 打开 Terminal

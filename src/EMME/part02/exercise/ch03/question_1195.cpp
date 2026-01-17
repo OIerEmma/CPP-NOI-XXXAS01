@@ -4,13 +4,14 @@
 #include<iostream>
 using namespace std;
 
-int a[10010], num[10010];
+int a[10010];
+int n, k;
 
 int main() {
-    int n, k;
-    scanf("%d %d", &n, &k);
-    for (int i = 2; i <= n; i++) {
-        
+    cin >> n >> k;
+    for (int i = 1; i <= n; i++) {
+        cin >> a[i];
     }
+
     return 0;
 }
