@@ -3,7 +3,11 @@ project(CPP-NOI-XXXAS01)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(CPP-NOI-XXXAS01 src/main.cpp)
+add_executable(CPP-NOI-XXXAS01 src/main.cpp
+        src/EMME/GLS/CLASS/2026寒假课/05堆1/heap_standard_func_code.cpp
+        src/EMME/GLS/CLASS/2026寒假课/06综合练习3/question_han6_F.cpp
+        src/EMME/GLS/CLASS/2026寒假课/07堆2/question_han7_B.cpp
+)
 
 # 递归遍历所有的 cpp 文件
 file(GLOB_RECURSE files "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
