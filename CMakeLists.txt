@@ -3,10 +3,7 @@ project(CPP-NOI-XXXAS01)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(CPP-NOI-XXXAS01 src/main.cpp
-        src/AMY/CPP_9_YBT2/CH01/L02/exercise/CH01_L02_E2.1.cpp
-        src/AMY/CPP_9_YBT2/CH01/L02/exercise/CH01_L02_E2.2.cpp
-        src/AMY/CPP_9_YBT2/CH01/L03/example/CH01_L03_3.1.cpp)
+add_executable(CPP-NOI-XXXAS01 src/main.cpp)
 
 # 递归遍历所有的 cpp 文件
 file(GLOB_RECURSE files "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
