@@ -18,6 +18,14 @@ int countBits(int n) {
     return ans;
 }
 
+bool isInteresting(int n) {
+    return false;
+}
+
+long long count(int x) {
+    return 0;
+}
+
 int main() {
     cin >> l >> r;
     for (int i = l; i <= r; i++) {
