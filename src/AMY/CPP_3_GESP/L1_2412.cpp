@@ -5,14 +5,14 @@
 using namespace std;
 
 int main() {
-    double K, F, C;
-    cin >> K;
-    C = K - 273.15;
-    F = C*1.8 + 32;
-    if (F>212) {
+    double k, f, c;
+    cin >> k;
+    c = k - 273.15;
+    f = c*1.8 + 32;
+    if (f>212) {
         cout<<"Temperature is too high!";
     }else {
-        printf("%.2f %.2f",C, F);
+        printf("%.2f %.2f",c, f);
     }
     return 0;
 }
