@@ -1,6 +1,7 @@
 //
 // Created by Emma on 2025/8/6.
 //
+#include <cstring>
 #include<iostream>
 using namespace std;
 

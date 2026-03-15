@@ -2,6 +2,7 @@
 // Created by Emme.Kwok on 2025/12/16.
 //
 #include<iostream>
+#include <queue>
 using namespace std;
 
 const int dx[] = {0, 0, -1, 1, 1, -1, 1, -1},

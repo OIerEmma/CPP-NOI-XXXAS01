@@ -57,6 +57,7 @@ int bfs() {
         digit(false, 1, now);
         digit(false, 0, now);
     }
+    return -1;
 }
 
 int main() {

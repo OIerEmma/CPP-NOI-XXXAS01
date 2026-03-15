@@ -2,6 +2,7 @@
 // Created by Emma on 2024/11/18.
 //
 #include<cstdio>
+#include <cstring>
 #include<iostream>
 using namespace std;
 

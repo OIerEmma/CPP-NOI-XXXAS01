@@ -3,6 +3,7 @@
 //
 #include<iostream>
 #include<cstdio>
+#include <cstring>
 using namespace std;
 
 const int maxn = 2 * 1e5 + 3;

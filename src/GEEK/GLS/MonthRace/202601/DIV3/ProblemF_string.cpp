@@ -1,9 +1,7 @@
 //
 // Created by Geek.Kwok on 2026/1/27.
 //
-#include <iostream>
-#include <cstdio>
-#include <cstring>
+#include <bits/stdc++.h>
 using namespace std;
 
 const int maxn = 1e5 + 5;

@@ -1,7 +1,7 @@
 //
 // Created by Emme.Kwok on 2026/3/14.
 //
-#include<iostream>
+#include<bits/stdc++.h>
 using namespace std;
 
 int main() {

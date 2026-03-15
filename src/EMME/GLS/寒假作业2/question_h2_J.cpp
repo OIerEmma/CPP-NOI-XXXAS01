@@ -2,6 +2,7 @@
 // Created by Emme.Kwok on 2026/1/24.
 //
 #include<iostream>
+#include<algorithm>
 using namespace std;
 
 int main() {

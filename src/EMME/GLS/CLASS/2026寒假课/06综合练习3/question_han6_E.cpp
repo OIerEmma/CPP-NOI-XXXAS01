@@ -1,6 +1,7 @@
 //
 // Created by Emme.Kwok on 2026/2/5.
 //
+#include <algorithm>
 #include<iostream>
 using namespace std;
 

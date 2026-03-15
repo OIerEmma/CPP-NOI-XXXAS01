@@ -3,6 +3,7 @@
 //
 #include<iostream>
 #include<cmath>
+#include <cstring>
 using namespace std;
 
 int a[20][20], cnt[256], color[16], cmp[20][20];

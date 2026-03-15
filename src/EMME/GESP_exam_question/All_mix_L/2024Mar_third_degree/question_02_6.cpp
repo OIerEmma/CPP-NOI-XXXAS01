@@ -1,6 +1,7 @@
 //
 // Created by Emma on 2025/2/14.
 //
+#include <cmath>
 #include<iostream>
 using namespace std;
 

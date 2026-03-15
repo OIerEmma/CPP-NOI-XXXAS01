@@ -1,6 +1,7 @@
 //
 // Created by Emme.Kwok on 2026/2/5.
 //
+#include <cmath>
 #include<iostream>
 #include<cstdio>
 using namespace std;

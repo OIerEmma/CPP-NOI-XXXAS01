@@ -1,6 +1,7 @@
 //
 // Created by Geek.Kwok on 2025/9/13.
 //
+#include <cstring>
 #include <iostream>
 using namespace std;
 
@@ -14,7 +15,7 @@ struct Point {
     Point(): x(0), y(0) {}
     Point(int x, int y, int cnt): x(x), y(y), cnt(cnt) {}
 };
-Point q[100*100];
+Point q[10000];
 bool flag[101][101];
 int front, rear, ans;
 int xx1, yy1, xx2, yy2;
