@@ -3,8 +3,7 @@ project(CPP-NOI-XXXAS01)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(CPP-NOI-XXXAS01 src/main.cpp
-        src/GEEK/YBT/PART2/CH05/P1221_ES10_Split_Prime_Group.cpp)
+add_executable(CPP-NOI-XXXAS01 src/main.cpp)
 
 # 递归遍历所有的 cpp 文件
 file(GLOB_RECURSE files "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
