@@ -13,10 +13,7 @@ char a[N][N];
 set<char> letters;
 
 void dfs(int x, int y, int step) {
-    if (step >= row * col) {
-        cnt = max(cnt, (int)letters.size());
-        return;
-    }
+    cnt = max(cnt, (int)letters.size());
     for (int i = 0; i < 4; i++) {
         int xx = x + dx[i], yy = y + dy[i];
         if (xx < 1 || xx > row || yy < 1 || yy > col || vis[xx][yy] || letters.count(a[xx][yy])) continue;
