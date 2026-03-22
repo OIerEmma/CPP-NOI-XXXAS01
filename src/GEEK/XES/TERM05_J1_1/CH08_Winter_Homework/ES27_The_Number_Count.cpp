@@ -4,7 +4,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int f[3005];
+int f[1005];
 
 int dfs(int x) {
     if (f[x]) return f[x];
