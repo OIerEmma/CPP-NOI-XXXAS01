@@ -13,14 +13,14 @@ bool check(int j, string prev, string nword) {
 
 void dfs(string prev) {
     res = max(res, (int)prev.length());
-    cout << res << " " << prev << endl;
+    // cout << res << " " << prev << endl;
     for (int i = 1; i <= n; i++) {
         if (vis[i] == 2) continue;
-        for (int j = 1; j <= word[i].size(); j++) {
+        for (int j = 1; j <= word[i].length(); j++) {
             if (check(j, prev, word[i])) {
-                vis[i]++;
                 string ss = prev + word[i].substr(j);
                 if (ss == prev) continue;
+                vis[i]++;
                 dfs(ss);
                 vis[i]--;
             }
