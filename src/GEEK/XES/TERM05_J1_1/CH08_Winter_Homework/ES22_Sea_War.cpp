@@ -19,24 +19,41 @@ void dfs(int x, int y) {
     g[cnt]++;
     for (int i = 0; i < 4; i++) {
         int xx = x + dx[i], yy = y + dy[i];
-        if (xx < 1 || x > n || yy < 1 || yy > m || vis[xx][yy] || mp[xx][yy] == '.') continue;
+        if (xx < 1 || xx > n || yy < 1 || yy > m || vis[xx][yy] || mp[xx][yy] == '.') continue;
         dfs(xx, yy);
     }
 }
 
 int main() {
     cin >> n >> m;
-    getchar();
+    // 成功：全过
     for (int i = 1; i <= n; i++) {
         for (int j = 1; j <= m; j++) {
-            scanf("%c", &mp[i][j]);
+            cin >> mp[i][j];
         }
-        getchar();
     }
+    // 失败：错了6个
+    // 猜测：测试样例中有些输入可能每行后面含有空格等字符
+    // getchar();
+    // for (int i = 1; i <= n; i++) {
+    //     for (int j = 1; j <= m; j++) {
+    //         scanf("%c", &mp[i][j]);
+    //     }
+    //     getchar();
+    // }
+    // 样例1的打印输出正常
+    // for (int i = 1; i <= n; i++) {
+    //     for (int j = 1; j <= m; j++) {
+    //         printf("%c", mp[i][j]);
+    //     }
+    //     cout << endl;
+    // }
+
     for (int i = 1; i <= n; i++) {
         for (int j = 1; j <= m; j++) {
             if (!vis[i][j] && mp[i][j] == '#') {
                 cnt++;
+                vis[i][j] = cnt;
                 minx = n + 1, maxx = 0, miny = m + 1, maxy = 0;
                 dfs(i, j);
                 if (g[cnt] != bs) {
