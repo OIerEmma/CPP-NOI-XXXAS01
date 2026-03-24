@@ -36,13 +36,15 @@ int main() {
             cnt++;
             dfs(i, m);
         }
-        if (!vis[1][i] && mp[1][i] == '0') {
+    }
+    for (int j = 1; j <= m; j++) {
+        if (!vis[1][j] && mp[1][j] == '0') {
             cnt++;
-            dfs(1, i);
+            dfs(1, j);
         }
-        if (!vis[m][i] && mp[m][i] == '0') {
+        if (!vis[n][j] && mp[n][j] == '0') {
             cnt++;
-            dfs(m, i);
+            dfs(n, j);
         }
     }
 

@@ -8,7 +8,7 @@ using namespace std;
 
 int dx[] = {1, -1, 0, 0};
 int dy[] = {0, 0, 1, -1};
-int n, m, cnt, g[N * N], vis[N][N], bs, minx, miny, maxx, maxy;
+int n, m, cnt, gg[N * N], vis[N][N], bs, minx, miny, maxx, maxy;
 char mp[N][N];
 
 void dfs(int x, int y) {
@@ -16,7 +16,7 @@ void dfs(int x, int y) {
     miny = min(miny, y), maxy = max(maxy, y);
     bs = (maxx - minx + 1) * (maxy - miny + 1);
     vis[x][y] = cnt;
-    g[cnt]++;
+    gg[cnt]++;
     for (int i = 0; i < 4; i++) {
         int xx = x + dx[i], yy = y + dy[i];
         if (xx < 1 || xx > n || yy < 1 || yy > m || vis[xx][yy] || mp[xx][yy] == '.') continue;
@@ -56,7 +56,7 @@ int main() {
                 vis[i][j] = cnt;
                 minx = n + 1, maxx = 0, miny = m + 1, maxy = 0;
                 dfs(i, j);
-                if (g[cnt] != bs) {
+                if (gg[cnt] != bs) {
                     cout << "Bad placement." << endl;
                     exit(0);
                 }
