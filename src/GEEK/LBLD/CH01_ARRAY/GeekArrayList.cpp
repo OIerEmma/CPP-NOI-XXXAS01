@@ -31,7 +31,7 @@ public:
         this->cap = initCapacity;
     }
 
-    // 增
+    // 增 //
     void addLast(E e) {
         // 看 data 数组容量够不够
         if (size == cap) {
@@ -67,6 +67,73 @@ public:
         add(0, e);
     }
 
+    // 删 //
+    E removeLast() {
+        if (size == 0) {
+        throw out_of_range("NoSuchElementException");
+        }
+        // 可以缩容，节约控件
+        if (size == cap / 4) {
+        resize(cap / 2);
+        }
+        E deletedVal = data[size - 1];
+        // 删除最后一个元素
+        // 必须给最后一个元素置为null，否则会内存泄漏
+        data[size - 1] = E();
+        size--;
+
+        return deletedVal;
+    }
+
+    E remove(int index) {
+        // 检查索引越界
+        checkElementIndex(index);
+        // 可以缩容，节约控件
+        if (size == cap / 4) {
+            resize(cap / 2);
+        }
+        E deletedVal = data[index];
+        // 搬移数据
+        for (int i = index + 1; i < size; i++) {
+            data[i - 1] = data[i];
+        }
+        data[size - 1] = E();
+        size--;
+
+        return deletedVal;
+    }
+
+    E removeFirst() {
+      return remove(0);
+    }
+
+    // 查 //
+    E get(int index) {
+      // 检查索引越界
+      checkElementIndex(index);
+
+      return data[index];
+    }
+
+    // 改 //
+    E set(int index, E element) {
+      // 检查索引越界
+      checkElementIndex(index);
+      // 修改数据
+      E oldVal = data[index];
+      data[index] = element;
+      return oldVal;
+    }
+
+    // 工具类方法
+    int getSize() {
+      return size;
+    }
+
+    bool isEmpty() {
+      return size == 0;
+    }
+
     // 将 data 的容量改为 newCap
     void resize(int newCap) {
         // 申请新空间
@@ -92,4 +159,42 @@ public:
             throw out_of_range("index out of bounds");
         }
     }
+
+    bool isElementIndex(int index) {
+      return index >= 0 && index < size;
+    }
+
+    // 检查 index 索引位置是否可以存在元素
+    bool checkElementIndex(int index) {
+      if (!isElementIndex(index)) {
+        throw out_of_range("index out of bounds");
+      }
+    }
+
+    ~GeekArrayList() {
+      delete []data;
+    }
 };
+
+int main() {
+  // 初始容量设置为3
+  GeekArrayList<int> arr(3);
+
+  // 添加5个元素
+  for (int i = 0; i < 5; i++) {
+    arr.addLast(i);
+  }
+
+  arr.remove(3);
+  arr.add(1, 9);
+  arr.addFirst(100);
+  int val = arr.removeLast();
+
+  // 100 1 9 2 3
+  for (int i = 0; i < arr.getSize(); i++) {
+    cout << arr.get(i) << " ";
+  }
+  cout << endl;
+
+  return 0;
+}
