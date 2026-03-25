@@ -72,7 +72,7 @@ public:
         if (size == 0) {
         throw out_of_range("NoSuchElementException");
         }
-        // 可以缩容，节约控件
+        // 可以缩容，节约空间
         if (size == cap / 4) {
         resize(cap / 2);
         }
@@ -88,7 +88,7 @@ public:
     E remove(int index) {
         // 检查索引越界
         checkElementIndex(index);
-        // 可以缩容，节约控件
+        // 可以缩容，节约空间
         if (size == cap / 4) {
             resize(cap / 2);
         }
