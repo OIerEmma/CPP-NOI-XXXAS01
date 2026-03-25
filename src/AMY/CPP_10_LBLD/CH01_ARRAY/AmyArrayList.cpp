@@ -4,6 +4,7 @@
 #include<iostream>
 #include<stdexcept>
 #include<vector>
+#include <_strings.h>
 using namespace std;
 
 template<typename E>
@@ -29,7 +30,7 @@ public:
     AmyArrayList(int initCapacity) {
         this->data = new E[initCapacity];
         this->size = 0;
-        this->cap == initCapacity;
+        this->cap = initCapacity;
     }
 
     //增
@@ -156,18 +157,18 @@ public:
     }
 
     //检查 index 索引位置是否可以添加元素
-    bool checkPositionIndex(int index) {
+    void checkPositionIndex(int index) {
         if (!isPositionIndex(index)) {
             throw out_of_range("index out of bounds");
         }
     }
 
     bool isElementIndex(int index) {
-        return index >= 0 && index < size;
+        return index >= 0 && index <= size;
     }
 
     //检查 index 索引位置是否可以添加元素
-    bool checkElementIndex(int index) {
+    void checkElementIndex(int index) {
         if (!isElementIndex(index)) {
             throw out_of_range("index out of bounds");
         }
