@@ -1,13 +1,13 @@
 //
-// Created by Amy on 2026/3/26.
+// Created by Amy on 2026/3/28.
 //
 #include<bits/stdc++.h>
 using namespace std;
 
 int main() {
-    double n;
+    int n;
     cin >> n;
-    printf("%.3lf",n);
+    
     return 0;
 }
 

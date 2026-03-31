@@ -5,9 +5,8 @@
 using namespace std;
 
 int main() {
-    double n;
-    cin >> n;
-    printf("%.3lf",n);
+    double s;
+    cin >> s;
+    printf("%.12lf",s);
     return 0;
 }
-
