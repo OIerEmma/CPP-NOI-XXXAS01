@@ -12,6 +12,12 @@ public:
     TreeNode(const int x) : val(x), left(nullptr), right(nullptr) {}
 };
 
+class NaryTreeNode {
+public:
+    int val;
+    vector<NaryTreeNode*> children;
+};
+
 /*
 int main() {
     // 可以这样构建一棵二叉树
