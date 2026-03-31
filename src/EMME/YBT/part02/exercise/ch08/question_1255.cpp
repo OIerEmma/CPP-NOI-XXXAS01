@@ -24,17 +24,19 @@ void bfs(int x, int y) {
     q.push({x, y, nullptr});
     vis[x][y] = true;
     while (!q.empty()) {
-        node u = q.front();
+        node* u = &q.front();
+        // node uu = p1;
+        // node uu = q.front();
+        // node* pn = &uu;
         q.pop();
-        if (u.x == 4 && u.y == 4) {
-            print(&u);
+        if (u->x == 4 && u->y == 4) {
+            print(u);
             return;
         }
         for (int i = 0; i < 4; i++) {
-            int nx = u.x + dx[i], ny = u.y + dy[i];
+            int nx = u->x + dx[i], ny = u->y + dy[i];
             if (nx < 0 || nx > 4 || ny < 0 || ny > 4 || vis[nx][ny] || mp[nx][ny] == 1) continue;
-            node uu = {u.x, u.y};
-            q.push({nx, ny, &uu});
+            q.push({nx, ny, u});
             vis[nx][ny] = true;
         }
     }

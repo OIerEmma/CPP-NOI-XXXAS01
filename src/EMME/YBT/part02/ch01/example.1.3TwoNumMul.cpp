@@ -5,8 +5,8 @@
 #include<iostream>
 using namespace std;
 
-char a1[101], b1[101];
-int a[101], b[101], c[10001];
+char a1[200005], b1[200005];
+int a[200005], b[200005], c[200005];
 
 int main() {
     cin >> a1 >> b1;
