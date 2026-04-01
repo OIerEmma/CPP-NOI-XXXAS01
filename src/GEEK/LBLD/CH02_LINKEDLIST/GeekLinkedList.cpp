@@ -30,7 +30,7 @@ void printLinkedList(ListNode* head) {
     if (head == nullptr) { return; }
     // 遍历单链表
     for (ListNode* p = head; p != nullptr; p = p->next) {
-        cout << p -> val << " ";
+        cout << p->val << " ";
     }
     cout << endl;
 }
