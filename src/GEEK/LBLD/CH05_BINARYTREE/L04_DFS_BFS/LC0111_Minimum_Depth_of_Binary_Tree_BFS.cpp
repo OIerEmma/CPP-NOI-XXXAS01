@@ -6,7 +6,7 @@
 #include <queue>
 using namespace std;
 
-/** 在实际的算法问题中，DFS 算法常用来穷举所有路径，BFS 算法常用来寻找最短路径。 */
+/** 在实际的算法问题中，DFS 算法常用来穷举所有路径，L03_BFS 算法常用来寻找最短路径。 */
 
 // Definition for a binary tree node.
 struct TreeNode {
@@ -22,7 +22,7 @@ class Solution {
 public:
     int minDepth(TreeNode* root) {
         if (root == nullptr) return 0;
-        // 从根节点开始 BFS 遍历
+        // 从根节点开始 L03_BFS 遍历
         queue<TreeNode*> q;
         q.push(root);
         int depth = 1; // root本身就是1层，depth初始化为1

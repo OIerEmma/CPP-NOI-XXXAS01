@@ -23,7 +23,7 @@ int main() {
             else if (mp[i][j] == '#') vis[i][j] = 0;
         }
     }
-    // BFS
+    // L03_BFS
     queue<node> q;
     q.push({ sx, sy });
     vis[sx][sy] = 0;

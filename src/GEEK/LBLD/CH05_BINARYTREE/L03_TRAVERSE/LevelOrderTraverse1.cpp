@@ -7,7 +7,7 @@
 #include "../L02_IMPL/TreeNode.cpp"
 using namespace std;
 
-// 二叉树的层序遍历（BFS）写法一
+// 二叉树的层序遍历（L03_BFS）写法一
 void levelOrderTraverse1(TreeNode* root) {
     if (root == nullptr) return;
     queue<TreeNode*> q;
@@ -23,7 +23,7 @@ void levelOrderTraverse1(TreeNode* root) {
     }
 }
 
-// 多叉树的层序遍历（BFS）写法一
+// 多叉树的层序遍历（L03_BFS）写法一
 void naryLevelOrderTraverse1(NaryTreeNode* root) {
     if (root == nullptr) return;
     queue<NaryTreeNode*> q;

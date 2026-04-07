@@ -23,7 +23,7 @@ public:
     NaryState(NaryTreeNode* node, int depth) : node(node), depth(depth) {}
 };
 
-// 二叉树的层序遍历（BFS）写法三：适配不同权重边的写法
+// 二叉树的层序遍历（L03_BFS）写法三：适配不同权重边的写法
 void levelOrderTraverse3(TreeNode* root) {
     if (root == nullptr) return;
     queue<State> q;
@@ -41,7 +41,7 @@ void levelOrderTraverse3(TreeNode* root) {
     }
 }
 
-// 多叉树的层序遍历（BFS）写法三：适配不同权重边的写法
+// 多叉树的层序遍历（L03_BFS）写法三：适配不同权重边的写法
 void naryLevelOrderTraverse3(NaryTreeNode* root) {
     if (root == nullptr) return;
     queue<NaryState> q;

@@ -5,7 +5,7 @@
 #include <climits>
 using namespace std;
 
-/** 在实际的算法问题中，DFS 算法常用来穷举所有路径，BFS 算法常用来寻找最短路径。 */
+/** 在实际的算法问题中，DFS 算法常用来穷举所有路径，L03_BFS 算法常用来寻找最短路径。 */
 
 // Definition for a binary tree node.
 struct TreeNode {
