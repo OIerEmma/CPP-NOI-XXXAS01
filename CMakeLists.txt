@@ -3,14 +3,7 @@ project(CPP-NOI-XXXAS01)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(CPP-NOI-XXXAS01 src/main.cpp
-        src/GEEK/LBLD/CH06_BINARYTREE_RECURSIVE/L02_IMPL/思路篇/LC0116_Populating_Next_Right_Pointers_in_Each_Node.cpp
-        src/GEEK/LBLD/CH06_BINARYTREE_RECURSIVE/L02_IMPL/思路篇/LC0114_Flatten_Binary_Tree_to_Linked_List.cpp
-        src/GEEK/LBLD/CH06_BINARYTREE_RECURSIVE/L02_IMPL/构造篇/LC0654_Maximum_Binary_Tree.cpp
-        src/GEEK/LBLD/CH06_BINARYTREE_RECURSIVE/L02_IMPL/构造篇/LC0105_Construct_Binary_Tree_from_Preorder_and_Inorder_Traversal.cpp
-        src/GEEK/LBLD/CH06_BINARYTREE_RECURSIVE/L02_IMPL/构造篇/LC0106_Construct_Binary_Tree_from_Inorder_and_Postorder_Traversal.cpp
-        src/GEEK/LBLD/CH06_BINARYTREE_RECURSIVE/L02_IMPL/构造篇/LC0889_Construct_Binary_Tree_from_Preorder_and_Postorder_Traversal.cpp
-        src/GEEK/LBLD/CH06_BINARYTREE_RECURSIVE/L02_IMPL/构造篇/LC0652_Find_Duplicate_Subtrees.cpp)
+add_executable(CPP-NOI-XXXAS01 src/main.cpp)
 
 # 递归遍历所有的 cpp 文件
 file(GLOB_RECURSE files "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
