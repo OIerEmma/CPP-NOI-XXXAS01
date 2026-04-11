@@ -3,11 +3,7 @@ project(CPP-NOI-XXXAS01)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(CPP-NOI-XXXAS01 src/main.cpp
-        src/GEEK/LBLD/CH05_BINARYTREE/L06_HEAP/LC0703_Kth_Largest.cpp
-        src/GEEK/LBLD/CH05_BINARYTREE/L06_HEAP/LC0215_Kth_Largest_Element_in_an_Array.cpp
-        src/GEEK/LBLD/CH05_BINARYTREE/L06_HEAP/LC0378_Kth_Smallest_Element_in_a_Sorted_Matrix.cpp
-        src/GEEK/LBLD/CH05_BINARYTREE/L06_HEAP/LC0347_TopK_Frequent_Elements.cpp)
+add_executable(CPP-NOI-XXXAS01 src/main.cpp)
 
 # 递归遍历所有的 cpp 文件
 file(GLOB_RECURSE files "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
