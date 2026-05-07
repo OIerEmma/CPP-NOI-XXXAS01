@@ -13,18 +13,19 @@ int main() {
     int x, y;
     do {
         cin >> x >> y;
-        if (x == 0 && y == 0) break;
-        a[x][y] = true;
-    } while (true);
+        if (x != 0 && y != 0) a[x][y] = true;
+    } while (x != 0 || y != 0);
 
     f[n] = w[n];
     for (int i = n - 1; i >= 1; i--) {
+        int l = 0, k = 0;
         for (int j = i + 1; j <= n; j++) {
-            if (a[i][j] && f[i] < w[i] + f[j]) {
-                f[i] = w[i] + f[j];
-                c[i] = j;
+            if (a[i][j] && f[j] > l) {
+                l = f[j], k = j;
             }
         }
+        f[i] = w[i] + l;
+        c[i] = k;
     }
 
     int k = 1;
