@@ -5,6 +5,7 @@
 using namespace std;
 
 int main() {
+    cout << "CSP-J2024 rp++" << endl;
     return 0;
 }
 /*

@@ -18,7 +18,13 @@ foreach (file ${files})
     if (${founded} EQUAL 0)
         # 如果找到了 main 函数，则创建可执行文件
         get_filename_component(name ${file} NAME)
-        add_executable(${name} ${file})
+        add_executable(${name} ${file}
+                src/EMME/DP/线性DP/数塔问题/LC0120_triangle.cpp
+                src/EMME/DP/线性DP/数塔问题/LC0931_minimum-falling-path-sum.cpp
+                src/EMME/DP/线性DP/数塔问题/LC0064_minimum-path-sum.cpp
+                src/EMME/DP/线性DP/数塔问题/LC1289_minimum-falling-path-sum-ii.cpp
+                src/EMME/DP/线性DP/数塔问题/LC0062_unique-paths.cpp
+                src/EMME/DP/线性DP/数塔问题/LC0063_unique-paths-ii.cpp)
         message(\ \ \ \ --\ src/${name}\ will\ be\ compiled\ to\ bin/${name})
     endif ()
 endforeach ()
