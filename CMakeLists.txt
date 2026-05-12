@@ -4,7 +4,9 @@ project(CPP-NOI-XXXAS01)
 set(CMAKE_CXX_STANDARD 11)
 
 add_executable(CPP-NOI-XXXAS01 src/main.cpp
-        src/GEEK/专题系列/DP/01线性DP/数塔问题/LC0118_pascals-triangle.cpp)
+        src/GEEK/专题系列/DP/01线性DP/打家劫舍/LC2140_solving-questions-with-brainpower.cpp
+        src/GEEK/专题系列/DP/01线性DP/打家劫舍/LC2320_count-number-of-ways-to-place-houses.cpp
+        src/GEEK/专题系列/DP/01线性DP/打家劫舍/LC_EXAM_17_16_the-masseuse-lcci.cpp)
 
 # 递归遍历所有的 cpp 文件
 file(GLOB_RECURSE files "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
@@ -19,13 +21,7 @@ foreach (file ${files})
     if (${founded} EQUAL 0)
         # 如果找到了 main 函数，则创建可执行文件
         get_filename_component(name ${file} NAME)
-        add_executable(${name} ${file}
-                src/EMME/DP/线性DP/数塔问题/LC0120_triangle.cpp
-                src/EMME/DP/线性DP/数塔问题/LC0931_minimum-falling-path-sum.cpp
-                src/EMME/DP/线性DP/数塔问题/LC0064_minimum-path-sum.cpp
-                src/EMME/DP/线性DP/数塔问题/LC1289_minimum-falling-path-sum-ii.cpp
-                src/EMME/DP/线性DP/数塔问题/LC0062_unique-paths.cpp
-                src/EMME/DP/线性DP/数塔问题/LC0063_unique-paths-ii.cpp)
+        add_executable(${name} ${file})
         message(\ \ \ \ --\ src/${name}\ will\ be\ compiled\ to\ bin/${name})
     endif ()
 endforeach ()
