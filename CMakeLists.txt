@@ -18,7 +18,10 @@ foreach (file ${files})
     if (${founded} EQUAL 0)
         # 如果找到了 main 函数，则创建可执行文件
         get_filename_component(name ${file} NAME)
-        add_executable(${name} ${file})
+        add_executable(${name} ${file}
+                src/EMME/DP/线性DP/打家劫舍/LC0740_delete-and-earn.cpp
+                src/EMME/DP/线性DP/打家劫舍/LC2320_count-number-of-ways-to-place-houses.cpp
+                src/EMME/DP/线性DP/打家劫舍/LC面试题17.16_the-masseuse-lcci.cpp)
         message(\ \ \ \ --\ src/${name}\ will\ be\ compiled\ to\ bin/${name})
     endif ()
 endforeach ()
