@@ -3,7 +3,8 @@ project(CPP-NOI-XXXAS01)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(CPP-NOI-XXXAS01 src/main.cpp)
+add_executable(CPP-NOI-XXXAS01 src/main.cpp
+        src/GEEK/专题系列/DP/01线性DP/04闯关游戏问题/Home_LC1696_jump-game-vi.cpp)
 
 # 递归遍历所有的 cpp 文件
 file(GLOB_RECURSE files "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
@@ -18,10 +19,7 @@ foreach (file ${files})
     if (${founded} EQUAL 0)
         # 如果找到了 main 函数，则创建可执行文件
         get_filename_component(name ${file} NAME)
-        add_executable(${name} ${file}
-                src/EMME/DP/线性DP/打家劫舍/LC0740_delete-and-earn.cpp
-                src/EMME/DP/线性DP/打家劫舍/LC2320_count-number-of-ways-to-place-houses.cpp
-                src/EMME/DP/线性DP/打家劫舍/LC面试题17.16_the-masseuse-lcci.cpp)
+        add_executable(${name} ${file})
         message(\ \ \ \ --\ src/${name}\ will\ be\ compiled\ to\ bin/${name})
     endif ()
 endforeach ()
