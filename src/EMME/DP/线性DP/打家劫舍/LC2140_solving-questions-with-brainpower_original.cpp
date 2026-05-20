@@ -20,9 +20,9 @@ public:
             if (next <= n) jump_to[next].push_back(i);
         }
         // 初始化
-        long long ans0 = 0, ans1 = 0;
         vector<vector<long long>> dp(n + 1, vector<long long>(2, 0));
         for (int i = 1; i <= n; i++) dp[i][0] = questions[i - 1][0]; // 每个问题自己做可形成的得分
+        long long ans0 = dp[1][0], ans1 = dp[1][1];
         // 计算顺序：正序
         for (int i = 2; i <= n; i++) {
             dp[i][0] = max(dp[i][0], dp[i - 1][1] + questions[i - 1][0]); // 第i个问题做：前个问题不做的最高得分 + 第i个问题做的得分
