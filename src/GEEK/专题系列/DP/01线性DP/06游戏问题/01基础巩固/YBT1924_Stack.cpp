@@ -8,7 +8,8 @@ using namespace std;
 int main() {
     int n;
     cin >> n;
-    // 状态定义: dp[i][j] 当前栈中有j个元素、还剩i个元素待入栈的方案数
+    // 状态定义: dp[i][j] 还剩 i 个元素待入栈、当前栈中有j个元素的方案数
+    // 即 dp[i][j] = 从初始状态(n,0)出发，到达状态(i,j)的不同操作序列总数
     // 初始化
     vector<vector<int>> dp(n + 1, vector<int>(n + 1, 0));
     dp[n][0] = 1;
