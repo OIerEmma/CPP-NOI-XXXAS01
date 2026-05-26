@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>爱心义卖 · 幸运大转盘（相同奖品不相邻）</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(145deg, #d3e5c0 0%, #b1d286 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', 'Quicksand', system-ui, 'Poppins', 'Comic Neue', sans-serif;
+            padding: 20px;
+            position: relative;
+            cursor: default;
+        }
+
+        .grass-patch {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: repeating-linear-gradient(45deg, #7dad4a, #7dad4a 25px, #8fc05a 25px, #8fc05a 50px);
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .game-container {
+            position: relative;
+            width: 780px;
+            max-width: 95vw;
+            background: rgba(250, 245, 225, 0.4);
+            border-radius: 68px;
+            backdrop-filter: blur(3px);
+            box-shadow: 0 20px 35px rgba(0,0,0,0.1), inset 0 1px 4px rgba(255,255,220,0.9);
+            padding: 20px 20px 30px;
+            z-index: 10;
+        }
+
+        #bgCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .wheel-wrapper {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        canvas#wheelCanvas {
+            display: block;
+            margin: 0 auto;
+            background: #fef8e7;
+            border-radius: 50%;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2), 0 0 0 10px #ffecb3, 0 0 0 14px #e6c27a;
+            transition: box-shadow 0.2s;
+            width: 100%;
+            height: auto;
+            max-width: 550px;
+            aspect-ratio: 1 / 1;
+            cursor: pointer;
+        }
+
+        .pointer-fixed {
+            position: absolute;
+            top: -28px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 28px solid transparent;
+            border-right: 28px solid transparent;
+            border-top: 60px solid #f3d48f;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
+            z-index: 20;
+        }
+        .pointer-fixed::after {
+            content: "🌸";
+            position: absolute;
+            font-size: 32px;
+            top: -68px;
+            left: -14px;
+            color: #c06a3a;
+            text-shadow: 0 1px 2px white;
+        }
+        .pointer-core {
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 28px;
+            height: 28px;
+            background: radial-gradient(circle, #ffe1a0, #e0b45a);
+            border-radius: 50%;
+            z-index: 21;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            border: 2px solid #fff5dc;
+        }
+
+        .info-panel {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .spin-btn {
+            background: linear-gradient(135deg, #e7b874, #d69c45);
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            font-weight: bold;
+            padding: 12px 32px;
+            border-radius: 60px;
+            letter-spacing: 4px;
+            cursor: pointer;
+            box-shadow: 0 6px 0 #8b5a2b;
+            transition: 0.08s linear;
+            font-family: inherit;
+            margin-bottom: 20px;
+        }
+        .spin-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #8b5a2b;
+        }
+        .result-area {
+            background: #fff7e8;
+            border-radius: 48px;
+            padding: 12px 25px;
+            display: inline-block;
+            box-shadow: inset 0 1px 5px rgba(0,0,0,0.03), 0 5px 12px rgba(0,0,0,0.08);
+            font-size: 1.7rem;
+            font-weight: bold;
+            color: #a06e3c;
+        }
+        .result-text {
+            font-size: 2rem;
+            background: #fffcf0;
+            padding: 8px 24px;
+            border-radius: 40px;
+            display: inline-block;
+            margin-top: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .deco-text {
+            font-size: 1rem;
+            color: #557a2c;
+            margin-top: 12px;
+            font-weight: 500;
+        }
+        button:disabled {
+            filter: grayscale(0.2);
+            transform: translateY(0);
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        @media (max-width: 550px) {
+            .spin-btn { font-size: 1.3rem; padding: 8px 20px; }
+            .result-text { font-size: 1.4rem; }
+            .pointer-fixed { border-left: 20px solid transparent; border-right: 20px solid transparent; border-top: 45px solid #f3d48f; top: -22px; }
+            .pointer-fixed::after { font-size: 24px; top: -52px; left: -12px; }
+            .pointer-core { width: 20px; height: 20px; top: -6px; }
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="bgCanvas"></canvas>
+<div class="grass-patch"></div>
+
+<div class="game-container">
+    <div class="wheel-wrapper">
+        <canvas id="wheelCanvas" width="600" height="600"></canvas>
+        <div class="pointer-fixed"></div>
+        <div class="pointer-core"></div>
+    </div>
+    <div class="info-panel">
+        <button class="spin-btn" id="spinButton">✨ 轻柔转动 ✨</button>
+        <div class="result-area">
+            🍃 今日幸运 🍃
+            <div class="result-text" id="resultMessage">点击转盘</div>
+        </div>
+        <div class="deco-text">🌿 爱心义卖 · 相同优惠不相邻 🌿</div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        // ---------- 奖品配置（数量：谢谢优惠x4，5折x1，6折x1，88折x2，8折x2，9折x2）----------
+        const basePrizeArray = [
+            "谢谢优惠", "谢谢优惠", "谢谢优惠", "谢谢优惠",
+            "5折",
+            "6折",
+            "88折", "88折",
+            "8折", "8折",
+            "9折", "9折"
+        ];
+
+        // Fisher-Yates 随机打乱
+        function shuffleArray(arr) {
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        // 检查数组中相邻元素是否相同（环形，即首尾也视为相邻）
+        function hasAdjacentSame(arr) {
+            for (let i = 0; i < arr.length; i++) {
+                const next = (i + 1) % arr.length;
+                if (arr[i] === arr[next]) return true;
+            }
+            return false;
+        }
+
+        // 生成满足相同奖品不相邻的随机排列
+        function generateValidPermutation() {
+            let attempts = 0;
+            const maxAttempts = 1000;
+            while (attempts < maxAttempts) {
+                const shuffled = shuffleArray([...basePrizeArray]);
+                if (!hasAdjacentSame(shuffled)) {
+                    return shuffled;
+                }
+                attempts++;
+            }
+            // 如果随机失败，使用一种确定性算法（将相同奖品尽量隔开，但这种情况极少）
+            // 这里简单返回最后一次随机结果（实际几乎不会触发）
+            console.warn("使用后备顺序");
+            return ["谢谢优惠", "5折", "谢谢优惠", "6折", "谢谢优惠", "88折", "8折", "9折", "谢谢优惠", "88折", "8折", "9折"];
+        }
+
+        // 最终奖品顺序（每次刷新页面都会重新生成，且保证相同奖品不相邻）
+        const prizeLabels = generateValidPermutation();
+
+        // 柔和配色（相同文字使用相同颜色）
+        const colorMap = {
+            "谢谢优惠": "#cfc5b0",
+            "5折": "#f2bc8c",
+            "6折": "#f5da9c",
+            "88折": "#b8d4c0",
+            "8折": "#efc8d3",
+            "9折": "#bed0e8"
+        };
+
+        const sectorColors = prizeLabels.map(label => colorMap[label]);
+        const SEG_COUNT = 12;
+        const ANGLE_PER_SEG = (Math.PI * 2) / SEG_COUNT;
+
+        // DOM 元素
+        const wheelCanvas = document.getElementById('wheelCanvas');
+        const ctx = wheelCanvas.getContext('2d');
+        let width, height, centerX, centerY, radius;
+        let currentRotation = 0;
+        let animating = false;
+        let animFrameId = null;
+        const spinDuration = 7000;     // 7 秒
+
+        // 固定箭头角度（向上）
+        const FIXED_ARROW_ANGLE = -Math.PI / 2;
+
+        // ---------- 辅助函数 ----------
+        function normalizeAngle(rad) {
+            let norm = rad % (Math.PI * 2);
+            if (norm < 0) norm += (Math.PI * 2);
+            return norm;
+        }
+
+        // 获取箭头指向的扇区索引（中点比较法）
+        function getCurrentSectorIndex(rotationOffset) {
+            let arrowWorld = normalizeAngle(FIXED_ARROW_ANGLE);
+            let bestIdx = 0;
+            let minDist = Infinity;
+            for (let i = 0; i < SEG_COUNT; i++) {
+                let midRaw = i * ANGLE_PER_SEG + ANGLE_PER_SEG / 2;
+                let midWorld = normalizeAngle(midRaw + rotationOffset);
+                let diff = Math.abs(arrowWorld - midWorld);
+                diff = Math.min(diff, Math.PI * 2 - diff);
+                if (diff < minDist) {
+                    minDist = diff;
+                    bestIdx = i;
+                }
+            }
+            if (minDist < ANGLE_PER_SEG * 0.45) {
+                return bestIdx;
+            }
+            // 边界回退
+            for (let i = 0; i < SEG_COUNT; i++) {
+                let startRaw = i * ANGLE_PER_SEG;
+                let endRaw = (i + 1) * ANGLE_PER_SEG;
+                let startWorld = normalizeAngle(startRaw + rotationOffset);
+                let endWorld = normalizeAngle(endRaw + rotationOffset);
+                if (startWorld < endWorld) {
+                    if (arrowWorld >= startWorld && arrowWorld < endWorld) return i;
+                } else {
+                    if (arrowWorld >= startWorld || arrowWorld < endWorld) return i;
+                }
+            }
+            return bestIdx;
+        }
+
+        // 计算让指针指向某个扇区中央所需的旋转偏移
+        function calcOffsetToAlignSector(targetIdx) {
+            const midRaw = targetIdx * ANGLE_PER_SEG + ANGLE_PER_SEG / 2;
+            let offset = normalizeAngle(FIXED_ARROW_ANGLE - midRaw);
+            return offset;
+        }
+
+        // 随机选择奖品索引
+        function selectRandomPrizeIndex() {
+            return Math.floor(Math.random() * SEG_COUNT);
+        }
+
+        // ---------- 绘制转盘 ----------
+        function drawWheel(rotationRad) {
+            ctx.clearRect(0, 0, width, height);
+            for (let i = 0; i < SEG_COUNT; i++) {
+                const start = i * ANGLE_PER_SEG + rotationRad;
+                const end = (i + 1) * ANGLE_PER_SEG + rotationRad;
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.arc(centerX, centerY, radius, start, end);
+                ctx.closePath();
+                ctx.fillStyle = sectorColors[i];
+                ctx.fill();
+                ctx.strokeStyle = "#fff8e0";
+                ctx.lineWidth = 2;
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.arc(centerX, centerY, radius, start, end);
+                ctx.lineTo(centerX, centerY);
+                ctx.strokeStyle = "#ffeeca";
+                ctx.lineWidth = 1.5;
+                ctx.stroke();
+            }
+
+            // 中心装饰
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius * 0.22, 0, Math.PI * 2);
+            ctx.fillStyle = "#fff2cf";
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius * 0.17, 0, Math.PI * 2);
+            ctx.fillStyle = "#f3da9e";
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius * 0.11, 0, Math.PI * 2);
+            ctx.fillStyle = "#fbd98b";
+            ctx.fill();
+
+            // 装饰小点
+            for (let i = 0; i < 24; i++) {
+                let radStar = (i * Math.PI * 2 / 24) + rotationRad * 0.4;
+                let x = centerX + Math.cos(radStar) * radius * 0.85;
+                let y = centerY + Math.sin(radStar) * radius * 0.85;
+                ctx.beginPath();
+                ctx.arc(x, y, radius * 0.018, 0, Math.PI * 2);
+                ctx.fillStyle = "#fff2bf";
+                ctx.fill();
+            }
+
+            // 绘制文字
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            for (let i = 0; i < SEG_COUNT; i++) {
+                let midRaw = i * ANGLE_PER_SEG + ANGLE_PER_SEG / 2;
+                let worldMid = midRaw + rotationRad;
+                let textRadius = radius * 0.66;
+                let x = centerX + Math.cos(worldMid) * textRadius;
+                let y = centerY + Math.sin(worldMid) * textRadius;
+                let prizeText = prizeLabels[i];
+                let fontSize = (prizeText === "谢谢优惠") ? radius * 0.07 : radius * 0.078;
+                ctx.font = `500 ${fontSize}px "Segoe UI", "Comic Neue", system-ui`;
+                ctx.fillStyle = "#fff8e7";
+                ctx.fillText(prizeText, x-1, y-1);
+                ctx.fillStyle = "#5a4a35";
+                ctx.fillText(prizeText, x, y);
+            }
+            ctx.font = `${radius * 0.12}px "Segoe UI"`;
+            ctx.fillStyle = "#e6b05c";
+            ctx.fillText("🌸", centerX-10, centerY+6);
+            ctx.fillStyle = "#c49a6c";
+            ctx.fillText("🍃", centerX+8, centerY-4);
+
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius+3, 0, Math.PI*2);
+            ctx.strokeStyle = "#f5e2b0";
+            ctx.lineWidth = 4;
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius-5, 0, Math.PI*2);
+            ctx.strokeStyle = "#edd6a0";
+            ctx.lineWidth = 2;
+            ctx.stroke();
+        }
+
+        function resizeAndDraw() {
+            const container = wheelCanvas.parentElement;
+            const maxSize = Math.min(container.clientWidth, 560);
+            wheelCanvas.width = maxSize;
+            wheelCanvas.height = maxSize;
+            width = wheelCanvas.width;
+            height = wheelCanvas.height;
+            centerX = width / 2;
+            centerY = height / 2;
+            radius = width * 0.46;
+            drawWheel(currentRotation);
+        }
+
+        // 背景绘制
+        function drawBackground() {
+            const bgCanvas = document.getElementById('bgCanvas');
+            const updateBgSize = () => {
+                bgCanvas.width = window.innerWidth;
+                bgCanvas.height = window.innerHeight;
+                const bgCtx = bgCanvas.getContext('2d');
+                bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+                bgCtx.fillStyle = "#bedf8a";
+                bgCtx.fillRect(0, 0, bgCanvas.width, bgCanvas.height);
+                bgCtx.fillStyle = "#9cc06a";
+                for(let i=0;i<100;i++) {
+                    let x = Math.random() * bgCanvas.width;
+                    let y = bgCanvas.height - 30 - Math.random() * 70;
+                    bgCtx.beginPath();
+                    bgCtx.moveTo(x, y);
+                    bgCtx.lineTo(x-3, y-12);
+                    bgCtx.lineTo(x+3, y-12);
+                    bgCtx.fill();
+                }
+                const treePos = [[80, bgCanvas.height-70], [bgCanvas.width-110, bgCanvas.height-90], [bgCanvas.width-40, bgCanvas.height-50], [210, bgCanvas.height-100], [bgCanvas.width-280, bgCanvas.height-60]];
+                treePos.forEach(pos => {
+                    bgCtx.fillStyle = "#a87b48";
+                    bgCtx.fillRect(pos[0]-8, pos[1]-25, 16, 40);
+                    bgCtx.fillStyle = "#79ae4c";
+                    bgCtx.beginPath();
+                    bgCtx.arc(pos[0], pos[1]-32, 20, 0, Math.PI*2);
+                    bgCtx.fill();
+                    bgCtx.fillStyle = "#5f8a3a";
+                    bgCtx.beginPath();
+                    bgCtx.arc(pos[0]-4, pos[1]-40, 12, 0, Math.PI*2);
+                    bgCtx.fill();
+                    bgCtx.beginPath();
+                    bgCtx.arc(pos[0]+6, pos[1]-38, 13, 0, Math.PI*2);
+                    bgCtx.fill();
+                });
+                for(let f=0;f<50;f++) {
+                    let fx = 30 + Math.random() * (bgCanvas.width-60);
+                    let fy = bgCanvas.height - 50 - Math.random() * 100;
+                    bgCtx.beginPath();
+                    bgCtx.arc(fx, fy, 4, 0, Math.PI*2);
+                    bgCtx.fillStyle = `hsl(${Math.random() * 50 + 20}, 60%, 70%)`;
+                    bgCtx.fill();
+                    bgCtx.fillStyle = "#eed97b";
+                    bgCtx.beginPath();
+                    bgCtx.arc(fx, fy, 2, 0, Math.PI*2);
+                    bgCtx.fill();
+                }
+                bgCtx.fillStyle = "#c2a16b";
+                bgCtx.beginPath();
+                bgCtx.ellipse(140, bgCanvas.height-95, 12, 8, 0, 0, Math.PI*2);
+                bgCtx.fill();
+                bgCtx.fillStyle = "#f0e0c5";
+                bgCtx.beginPath();
+                bgCtx.ellipse(134, bgCanvas.height-100, 6, 8, 0, 0, Math.PI*2);
+                bgCtx.fill();
+                bgCtx.fillStyle = "#e8b86b";
+                bgCtx.beginPath();
+                bgCtx.ellipse(bgCanvas.width-70, bgCanvas.height-110, 11, 8, 0.2, 0, Math.PI*2);
+                bgCtx.fill();
+                bgCtx.fillStyle = "#be843a";
+                bgCtx.beginPath();
+                bgCtx.moveTo(bgCanvas.width-78, bgCanvas.height-113);
+                bgCtx.lineTo(bgCanvas.width-86, bgCanvas.height-118);
+                bgCtx.lineTo(bgCanvas.width-74, bgCanvas.height-118);
+                bgCtx.fill();
+                bgCtx.fillStyle = "#b8885a";
+                bgCtx.beginPath();
+                bgCtx.ellipse(bgCanvas.width-190, bgCanvas.height-70, 10, 7, 0, 0, Math.PI*2);
+                bgCtx.fill();
+                bgCtx.fillStyle = "#e8cb9e";
+                bgCtx.beginPath();
+                bgCtx.ellipse(bgCanvas.width-195, bgCanvas.height-77, 5, 6, 0, 0, Math.PI*2);
+                bgCtx.fill();
+            };
+            updateBgSize();
+            window.addEventListener('resize', () => updateBgSize());
+        }
+
+        // 舒缓缓动
+        function gentleEase(t) {
+            return 1 - Math.pow(1 - t, 2.5);
+        }
+
+        // ---------- 核心动画 ----------
+        function startSpinAnimation(targetPrizeIdx) {
+            if (animating) return;
+            animating = true;
+            const spinBtn = document.getElementById('spinButton');
+            spinBtn.disabled = true;
+
+            const startRot = currentRotation;
+            const targetOffsetMod = calcOffsetToAlignSector(targetPrizeIdx);
+            const extraRounds = 2 + Math.floor(Math.random() * 3);
+            let deltaAngle = (targetOffsetMod - startRot);
+            let totalDelta = deltaAngle + (Math.PI * 2 * extraRounds);
+            const spinStartTime = performance.now();
+
+            function step(now) {
+                const elapsed = now - spinStartTime;
+                let t = Math.min(1, elapsed / spinDuration);
+                const easeT = gentleEase(t);
+                const currTotalRot = startRot + totalDelta * easeT;
+                currentRotation = normalizeAngle(currTotalRot);
+                drawWheel(currentRotation);
+
+                if (t < 1) {
+                    animFrameId = requestAnimationFrame(step);
+                } else {
+                    currentRotation = targetOffsetMod;
+                    drawWheel(currentRotation);
+
+                    let actualIdx = getCurrentSectorIndex(currentRotation);
+                    let microStep = 0.0001;
+                    let maxAttempts = 100;
+                    let attempts = 0;
+                    while (actualIdx !== targetPrizeIdx && attempts < maxAttempts) {
+                        if (actualIdx < targetPrizeIdx) {
+                            currentRotation = normalizeAngle(currentRotation + microStep);
+                        } else {
+                            currentRotation = normalizeAngle(currentRotation - microStep);
+                        }
+                        drawWheel(currentRotation);
+                        actualIdx = getCurrentSectorIndex(currentRotation);
+                        attempts++;
+                    }
+                    if (actualIdx !== targetPrizeIdx) {
+                        currentRotation = calcOffsetToAlignSector(targetPrizeIdx);
+                        drawWheel(currentRotation);
+                        actualIdx = getCurrentSectorIndex(currentRotation);
+                    }
+
+                    const finalPrize = prizeLabels[actualIdx];
+                    const resultDiv = document.getElementById('resultMessage');
+                    resultDiv.innerHTML = `🎉 ${finalPrize} 🎉`;
+                    resultDiv.style.transform = "scale(1.05)";
+                    setTimeout(()=> { resultDiv.style.transform = "scale(1)"; }, 200);
+
+                    animating = false;
+                    spinBtn.disabled = false;
+                    cancelAnimationFrame(animFrameId);
+                    animFrameId = null;
+                }
+            }
+
+            if (animFrameId) cancelAnimationFrame(animFrameId);
+            animFrameId = requestAnimationFrame(step);
+        }
+
+        function onSpin() {
+            if (animating) return;
+            const prizeIdx = selectRandomPrizeIndex();
+            document.getElementById('resultMessage').innerHTML = "🍃 轻柔旋转 🍃";
+            startSpinAnimation(prizeIdx);
+        }
+
+        function handleCanvasClick(e) {
+            if (animating) return;
+            const rect = wheelCanvas.getBoundingClientRect();
+            const scaleX = wheelCanvas.width / rect.width;
+            const scaleY = wheelCanvas.height / rect.height;
+            const mouseX = (e.clientX - rect.left) * scaleX;
+            const mouseY = (e.clientY - rect.top) * scaleY;
+            const dx = mouseX - centerX;
+            const dy = mouseY - centerY;
+            const dist = Math.sqrt(dx*dx + dy*dy);
+            if (dist <= radius) {
+                onSpin();
+            }
+        }
+
+        function init() {
+            drawBackground();
+            resizeAndDraw();
+            window.addEventListener('resize', () => resizeAndDraw());
+            document.getElementById('spinButton').addEventListener('click', onSpin);
+            wheelCanvas.addEventListener('click', handleCanvasClick);
+            wheelCanvas.style.cursor = "pointer";
+            const initIdx = getCurrentSectorIndex(currentRotation);
+            document.getElementById('resultMessage').innerHTML = `✨ ${prizeLabels[initIdx]} ✨`;
+        }
+        init();
+    })();
+</script>
+</body>
+</html>
