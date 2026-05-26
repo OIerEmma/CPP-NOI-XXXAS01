@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>爱心义卖 · 幸运大转盘（相同奖品不相邻）</title>
+    <title>爱心义卖 · 幸运大转盘（规则分布版）</title>
     <style>
         * {
             margin: 0;
@@ -195,59 +195,124 @@
             🍃 今日幸运 🍃
             <div class="result-text" id="resultMessage">点击转盘</div>
         </div>
-        <div class="deco-text">🌿 爱心义卖 · 相同优惠不相邻 🌿</div>
+        <div class="deco-text">🌿 爱心义卖 · 均匀分布 · 对角分隔 🌿</div>
     </div>
 </div>
 
 <script>
     (function() {
-        // ---------- 奖品配置（数量：谢谢优惠x4，5折x1，6折x1，88折x2，8折x2，9折x2）----------
-        const basePrizeArray = [
-            "谢谢优惠", "谢谢优惠", "谢谢优惠", "谢谢优惠",
-            "5折",
-            "6折",
-            "88折", "88折",
-            "8折", "8折",
-            "9折", "9折"
+        // ---------- 奖品池（数量：谢谢优惠x4，5折x1，6折x1，88折x2，8折x2，9折x2）----------
+        const THANKS = "谢谢优惠";
+        const DISCOUNT_5 = "5折";
+        const DISCOUNT_6 = "6折";
+        const DISCOUNT_88 = "88折";
+        const DISCOUNT_8 = "8折";
+        const DISCOUNT_9 = "9折";
+
+        // 固定谢谢优惠的均匀位置（12个扇区，索引0~11，每间隔3一个）
+        const THANK_POSITIONS = [0, 3, 6, 9];
+
+        // 可能成对角的位置对（相差6，且不占用谢谢优惠位置）
+        const DIAGONAL_PAIRS = [
+            [1, 7],
+            [2, 8],
+            [4, 10],
+            [5, 11]
         ];
 
-        // Fisher-Yates 随机打乱
-        function shuffleArray(arr) {
-            for (let i = arr.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [arr[i], arr[j]] = [arr[j], arr[i]];
-            }
-            return arr;
-        }
-
-        // 检查数组中相邻元素是否相同（环形，即首尾也视为相邻）
+        // 检查数组中相邻元素（环形）是否有相同折扣（包括谢谢优惠也检查，但谢谢优惠已固定且间距3，不会相邻）
         function hasAdjacentSame(arr) {
-            for (let i = 0; i < arr.length; i++) {
-                const next = (i + 1) % arr.length;
+            const n = arr.length;
+            for (let i = 0; i < n; i++) {
+                const next = (i + 1) % n;
                 if (arr[i] === arr[next]) return true;
             }
             return false;
         }
 
-        // 生成满足相同奖品不相邻的随机排列
-        function generateValidPermutation() {
+        // 生成满足所有约束的随机排列
+        function generateValidPrizeLabels() {
+            // 1. 初始化长度为12的空数组，填充null
+            let labels = new Array(12).fill(null);
+
+            // 2. 放置谢谢优惠
+            for (let pos of THANK_POSITIONS) {
+                labels[pos] = THANKS;
+            }
+
+            // 3. 随机选择一对对角位置放置5折和6折
+            const pairIndex = Math.floor(Math.random() * DIAGONAL_PAIRS.length);
+            const [pos5, pos6] = DIAGONAL_PAIRS[pairIndex];
+            labels[pos5] = DISCOUNT_5;
+            labels[pos6] = DISCOUNT_6;
+
+            // 4. 获取剩余空闲位置（未填充的位置）
+            let freePositions = [];
+            for (let i = 0; i < 12; i++) {
+                if (labels[i] === null) freePositions.push(i);
+            }
+            // 剩余需要填充的奖品：8折x2, 88折x2, 9折x2
+            const remainingPrizes = [
+                DISCOUNT_8, DISCOUNT_8,
+                DISCOUNT_88, DISCOUNT_88,
+                DISCOUNT_9, DISCOUNT_9
+            ];
+
+            // 随机打乱剩余奖品顺序，并尝试放置到空闲位置，要求相同折扣不相邻（包括与已放置的相邻）
+            // 由于空闲位置固定，我们可以随机排列剩余奖品，然后检查整个数组是否无相邻相同
+            // 最多尝试200次，若失败则使用确定性构造（极少发生）
             let attempts = 0;
-            const maxAttempts = 1000;
-            while (attempts < maxAttempts) {
-                const shuffled = shuffleArray([...basePrizeArray]);
-                if (!hasAdjacentSame(shuffled)) {
-                    return shuffled;
+            const maxAttempts = 200;
+            let found = false;
+            while (attempts < maxAttempts && !found) {
+                // 随机打乱剩余奖品
+                const shuffled = [...remainingPrizes];
+                for (let i = shuffled.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
                 }
+                // 填入空闲位置
+                for (let idx = 0; idx < freePositions.length; idx++) {
+                    labels[freePositions[idx]] = shuffled[idx];
+                }
+                // 检查整个数组是否无相邻相同（环形）
+                if (!hasAdjacentSame(labels)) {
+                    found = true;
+                    break;
+                }
+                // 失败则重置labels中的非固定位置为null，重新尝试
+                for (let pos of freePositions) labels[pos] = null;
                 attempts++;
             }
-            // 如果随机失败，使用一种确定性算法（将相同奖品尽量隔开，但这种情况极少）
-            // 这里简单返回最后一次随机结果（实际几乎不会触发）
-            console.warn("使用后备顺序");
-            return ["谢谢优惠", "5折", "谢谢优惠", "6折", "谢谢优惠", "88折", "8折", "9折", "谢谢优惠", "88折", "8折", "9折"];
+
+            // 如果随机失败，使用一个预先验证有效的后备方案（保证不报错）
+            if (!found) {
+                // 后备方案：固定一种有效顺序（5折在1，6折在7，其余顺序：2:8折,4:88折,5:9折,8:8折,10:88折,11:9折）
+                labels = new Array(12).fill(null);
+                for (let pos of THANK_POSITIONS) labels[pos] = THANKS;
+                labels[1] = DISCOUNT_5;
+                labels[7] = DISCOUNT_6;
+                labels[2] = DISCOUNT_8;
+                labels[4] = DISCOUNT_88;
+                labels[5] = DISCOUNT_9;
+                labels[8] = DISCOUNT_8;
+                labels[10] = DISCOUNT_88;
+                labels[11] = DISCOUNT_9;
+                // 验证（调试用，确保有效）
+                if (hasAdjacentSame(labels)) {
+                    // 最后的保底，调整一个位置
+                    labels[11] = DISCOUNT_9;
+                }
+            }
+
+            return labels;
         }
 
-        // 最终奖品顺序（每次刷新页面都会重新生成，且保证相同奖品不相邻）
-        const prizeLabels = generateValidPermutation();
+        // 最终奖品顺序（每次刷新页面都会重新生成，严格满足所有约束）
+        const prizeLabels = generateValidPrizeLabels();
+
+        // 验证输出（可选，用于调试）
+        console.log("生成的奖品顺序:", prizeLabels.join(", "));
 
         // 柔和配色（相同文字使用相同颜色）
         const colorMap = {
