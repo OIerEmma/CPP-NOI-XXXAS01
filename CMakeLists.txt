@@ -3,9 +3,7 @@ project(CPP-NOI-XXXAS01)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(CPP-NOI-XXXAS01 src/main.cpp
-        src/GEEK/专题系列/DP/01线性DP/07选数问题/03进阶变体/LGP1280_Nick_Tasks_AOrder2.cpp
-        src/GEEK/专题系列/DP/01线性DP/05LIS问题/03排序降维LIS/LC0354_russian-doll-envelopes.cpp)
+add_executable(CPP-NOI-XXXAS01 src/main.cpp)
 
 # 递归遍历所有的 cpp 文件
 file(GLOB_RECURSE files "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
