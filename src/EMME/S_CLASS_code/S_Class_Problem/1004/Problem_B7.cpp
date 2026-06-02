@@ -32,7 +32,7 @@ int main() {
         }
     }
     if (isprime(maxn - minn)) {
-        cout << "Lucky Word" << endl;
+        cout << "activitiy Word" << endl;
         cout << maxn - minn << endl;
     } else {
         cout << "No Answer" << endl;
