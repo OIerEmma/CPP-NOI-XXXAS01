@@ -18,18 +18,17 @@ void dfs(int step) {
         for (int i = 1; i < n; i++)
             ans += max(b[p[i]], a[p[i + 1]]);
         res = min(res, ans);
-        for (int i = 1; i <= n; i++) cout << p[i] << " ";
-        cout << endl << ans << endl;
+        // for (int i = 1; i <= n; i++) cout << p[i] << " ";
+        // cout << endl << ans << endl;
         return;
     }
-    for (int i = 1; i <= n; i++) {
-        if (!vis[step]) {
+    for (int i = 1; i <= n; i++)
+        if (!vis[i]) {
             p[step] = i;
-            vis[step] = true;
+            vis[i] = true;
             dfs(step + 1);
-            vis[step] = false;
+            vis[i] = false;
         }
-    }
 }
 
 int main() {
