@@ -9,7 +9,7 @@ int main() {
     int n;
     cin >> n;
     // 状态定义 dp[i] 从1构建到i的方案数
-    // 状态转移方程 dp[i] = Sum { dp[j], 1 <= j < 2/i }
+    // 状态转移方程 dp[i] = Sum { dp[j], 1 <= j < i/2 }
     // 初始化
     vector<int> dp(n + 1, 1);
     // 计算顺序
