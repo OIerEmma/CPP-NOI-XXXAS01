@@ -1,26 +1,33 @@
 //
-// Created by Emme.Kwok on 2026/5/6.
+// Created by Emme.Kwok on 2026/4/23.
 //
 #include<iostream>
-#include<vector>
 using namespace std;
 
-int n, L;
-const int INF = 1e9;
+int n, L, ans = INT32_MAX;
+int c[505], l[505], a[505];
+
+void dfs(int step, int total, int money) {
+    // cout << step << " " << total << " " << money << endl;
+    if (money >= ans) return;
+    if (step == n + 1) {
+        if (total >= L) ans = min(ans, money);
+        return;
+    }
+    for (int i = 1; i >= 0; i--) {
+        a[step] = i;
+        dfs(step + 1, total + (i ? l[step] : 0), money + (i ? c[step] : 0));
+        a[step] = 0;
+    }
+}
 
 int main() {
     cin >> n >> L;
-    vector<int> c(n), l(n);
-    for (int i = 0; i < n; i++) cin >> c[i] >> l[i];
-    vector<int> dp(L + 1, INF);
-    dp[0] = 0;
-    for (int i = 0; i < n; i++) {
-        for (int j = L; j >= 0; j--) {
-            if (dp[max(j - l[i], 0)] != INF)
-                dp[j] = min(dp[max(j - l[i], 0)] + c[i], dp[j]);
-        }
+    for (int i = 1; i <= n; i++) {
+        cin >> c[i] >> l[i];
     }
-    if (dp[L] != INF) cout << dp[L] << endl;
-    else cout << "no solution" << endl;
+    dfs(1, 0, 0);
+    if (ans == INT32_MAX) cout << "no solution\n";
+    else cout << ans << endl;
     return 0;
 }
