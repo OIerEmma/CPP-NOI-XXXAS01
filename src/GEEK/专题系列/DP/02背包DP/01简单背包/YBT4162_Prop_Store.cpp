@@ -21,10 +21,10 @@ int main() {
     dp[0] = 0;
     // 计算顺序
     for (int i = 0; i < n; i++)
-        for (int j = totalA; j >= a[i]; j--)  // 01背包：反向更新，价值当重量(攻击力当金币花费)
+        for (int j = totalA; j >= a[i]; j--)  // 与标准01背包差异1：反向更新，价值当重量(攻击力当金币花费)
             dp[j] = min(dp[j], dp[j - a[i]] + c[i]);
 
-    // 结果：寻找花费 <= k 的最大攻击力
+    // 结果：寻找花费 <= k 的最大攻击力；与标准01背包差异2：逆序找首个最小金币花费小于K的最大攻击力
     int ans = 0;
     for (int i = totalA; i >= 0; i--) if (dp[i] <= k) { ans = i; break; }
     cout << ans << endl;
