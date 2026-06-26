@@ -1,9 +1,10 @@
 //
 // Created by Geek.Kwok on 5/13/26.
 //
-#include <iostream>
-#include <vector>
+#include <bits/stdc++.h>
 using namespace std;
+
+const int NEG_INF = -1e9;
 
 int main() {
     // input
@@ -14,7 +15,6 @@ int main() {
     for (int i = 0; i < n; i++) cin >> score[i];
     // dp[i] 到达第 i 关（不含当前关奖励）可获取的最高分数(0-based)
     // 初始化
-    constexpr int NEG_INF = -1e9;
     vector<int> dp(n + 1, NEG_INF); // 初始化为极小负数，表示暂不可达
     dp[0] = 0; // 站在第 0 关，得分 0
     // 计算顺序 正序递推：计算到达每一关的最大得分

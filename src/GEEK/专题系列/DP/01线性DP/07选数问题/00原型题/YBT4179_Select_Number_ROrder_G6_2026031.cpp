@@ -1,8 +1,7 @@
 //
 // Created by Geek.Kwok on 5/20/26.
 //
-#include <iostream>
-#include <vector>
+#include <bits/stdc++.h>
 using namespace std;
 
 int main() {
