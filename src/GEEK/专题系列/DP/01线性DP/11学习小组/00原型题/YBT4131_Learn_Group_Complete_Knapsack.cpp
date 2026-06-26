@@ -26,7 +26,7 @@ int main() {
         for (int j = i; j <= n; j++)
           if (dp[j - i] != NEG_INF) dp[j] = max(dp[j], dp[j - i] + a[i]);
 
-    // 输出结果：从题意知道结果其实一定存在，全部学生组成一个学习小组
+    // 输出结果：从题意知道结果其实一定存在，比如全部学生组成一个学习小组
     if (dp[n] != NEG_INF) cout << dp[n] << endl;
     else cout << -1 << endl;
 

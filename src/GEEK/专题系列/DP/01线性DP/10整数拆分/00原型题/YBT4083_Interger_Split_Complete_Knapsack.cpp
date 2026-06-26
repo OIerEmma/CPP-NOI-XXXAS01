@@ -48,7 +48,7 @@ int main() {
     for (int j = w[i]; j <= n; j++)
       dp[j] = min(dp[j], dp[j - w[i]] + 1); // 不选和选
 
-  // 结果：从题意知道结果其实一定存在，即用1来组成
+  // 结果：从题意知道结果其实一定存在，比如全部用n个1^2可以组成n
   if (dp[n] != INF) cout << dp[n] << endl;
   else cout << -1 << endl;
   return 0;
