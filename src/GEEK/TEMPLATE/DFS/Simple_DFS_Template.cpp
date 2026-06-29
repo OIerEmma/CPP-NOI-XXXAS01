@@ -4,7 +4,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-
 // --- 建树的三种方式 ---
 
 // 方式1：孩子数组

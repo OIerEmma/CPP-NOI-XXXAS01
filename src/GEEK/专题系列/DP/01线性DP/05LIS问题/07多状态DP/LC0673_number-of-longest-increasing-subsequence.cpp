@@ -10,7 +10,7 @@ public:
     int findNumberOfLIS(vector<int>& nums) {
         int n = nums.size(), ans = 1, count = 0;
 
-        // dp[i] 以i为结尾的最长上升子序列长度
+        // DP[i] 以i为结尾的最长上升子序列长度
         // cnt[i] 以i为结尾的最长上升子序列出现的次数
         vector<int> dp(n, 1), cnt(n, 1);
         // 计算顺序
@@ -37,9 +37,9 @@ public:
 };
 
 // 1 3 5 4 7
-// dp[]
+// DP[]
 // 1 2 3 3 4
 // cnt[]
 // 1 1 2
 
-// 需要两个 dp 数组：len[i] 记录以 i 结尾的 LIS 长度，cnt[i] 记录对应的方案数。转移时若 len[j] + 1 > len[i] 则更新长度并重置计数；若相等则累加计数。最终将所有 len[i] == maxLen 的 cnt[i] 相加。
+// 需要两个 DP 数组：len[i] 记录以 i 结尾的 LIS 长度，cnt[i] 记录对应的方案数。转移时若 len[j] + 1 > len[i] 则更新长度并重置计数；若相等则累加计数。最终将所有 len[i] == maxLen 的 cnt[i] 相加。

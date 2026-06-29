@@ -11,7 +11,7 @@ int main() {
     cin >> n;
     vector<int> arr(n);
     for (int i = 0; i < n; i++) cin >> arr[i];
-    // dp[i] 以i为结尾的最大上升子序列和
+    // DP[i] 以i为结尾的最大上升子序列和
     // 初始化
     int ans = 0;
     vector<int> dp(n, 0);

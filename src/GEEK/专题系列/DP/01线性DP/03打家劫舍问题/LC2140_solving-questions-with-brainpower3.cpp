@@ -9,7 +9,7 @@ class Solution {
 public:
     long long mostPoints(vector<vector<int>>& questions) {
         int n = questions.size();
-        // dp[i] 走到第 i 题面前时的最大得分 i 属于 [0, n]
+        // DP[i] 走到第 i 题面前时的最大得分 i 属于 [0, n]
         // 初始化
         vector<long long> dp(n + 1, 0);
         // 计算顺序

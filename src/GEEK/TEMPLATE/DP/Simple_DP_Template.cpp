@@ -12,7 +12,7 @@ int main() {
     vector<int> w(105), v(105);
     for (int i = 0; i < n; i++) cin >> w[i] >> v[i];
 
-    // 状态：dp[j] = 容量为j时的最大价值
+    // 状态：DP[j] = 容量为j时的最大价值
     vector<int> dp(10005, 0); // 全部初始化为0
     // 顺序
     for (int i = 0; i < n; i++)
@@ -33,7 +33,7 @@ int main2() {
     vector<int> w(105), v(105);
     for (int i = 0; i < n; i++) cin >> w[i] >> v[i];
 
-    // 状态：dp[j] = 容量恰好为j时的最小花费
+    // 状态：DP[j] = 容量恰好为j时的最小花费
     vector<int> dp(10005, INF);  // 差异1：全部初始化为INF
     dp[0] = 0;                          // 差异1：容量0时花费0
     // 顺序
@@ -55,7 +55,7 @@ int main3() {
     vector<int> w(105), v(105);
     for (int i = 0; i < n; i++) cin >> w[i] >> v[i];
 
-    // 状态：dp[j] = 容量恰好为j时的最小花费
+    // 状态：DP[j] = 容量恰好为j时的最小花费
     vector<int> dp(10005, INF);  // 全部初始化为INF
     dp[0] = 0;                          // 容量0时花费0
     // 顺序
@@ -79,7 +79,7 @@ int main4() {
     vector<int> w(105), v(105);
     for (int i = 0; i < n; i++) cin >> w[i] >> v[i];
 
-    // 状态：dp[j] = 容量为j时的方案数
+    // 状态：DP[j] = 容量为j时的方案数
     vector<int> dp(10005, 0); // 全部初始化为0
     dp[0] = 1; // 差异1：容量0时有1种方案数即什么都不选
     // 顺序
@@ -99,7 +99,7 @@ int main5() {
     vector<int> a(n);
     for (int i = 0; i < n; i++) cin >> a[i];
 
-    // 状态：dp[i] = 达到第i个位置时的最优值
+    // 状态：DP[i] = 达到第i个位置时的最优值
     vector<int> dp(n, 0); // 全部初始化为0
     dp[0] = a[0], dp[1] = a[0] + a[1]; // 或者 max(a[0], a[1]) 具体看题意
     // 顺序

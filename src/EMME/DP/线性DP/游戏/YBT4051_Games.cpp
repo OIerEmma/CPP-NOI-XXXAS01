@@ -10,7 +10,7 @@ const int mod = 1e9 + 7;
 int main() {
     int n, a, b, c;
     cin >> n >> a >> b >> c;
-    // dp[i] 代表从 n 变成 i 的总方案数
+    // DP[i] 代表从 n 变成 i 的总方案数
     vector<int> dp(2 * n + 1, 0);
     const int OFFSET = n;
     // 初始条件

@@ -13,7 +13,7 @@ int main() {
     vector<int> score(n), channel(m);
     for (int i = 0; i < m; i++) cin >> channel[i];
     for (int i = 0; i < n; i++) cin >> score[i];
-    // dp[i] 到达第 i 关（不含当前关奖励）可获取的最高分数(0-based)
+    // DP[i] 到达第 i 关（不含当前关奖励）可获取的最高分数(0-based)
     // 初始化
     vector<int> dp(n + 1, NEG_INF); // 初始化为极小负数，表示暂不可达
     dp[0] = 0; // 站在第 0 关，得分 0

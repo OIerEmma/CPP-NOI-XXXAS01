@@ -9,11 +9,11 @@ class Solution {
 public:
     long long mostPoints(vector<vector<int>>& questions) {
         // 定义状态
-        // dp[i] 代表从 0 到 i - 1 可以获得的最高分数(第i个不考虑)
+        // DP[i] 代表从 0 到 i - 1 可以获得的最高分数(第i个不考虑)
         // 初始化
         int n = questions.size();
         vector<long long> dp(n + 1, 0);
-        // dp[1] = questions[0][0];
+        // DP[1] = questions[0][0];
         // 计算顺序 正序
         for (int i = 0; i < n; i++) {
             int next = i + questions[i][1] + 1;

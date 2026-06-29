@@ -8,10 +8,10 @@ using namespace std;
 class Solution {
 public:
     long long mostPoints(vector<vector<int>>& questions) {
-        // dp[i] 代表从第i个问题开始到最后一个问题，可获得的最高分数
+        // DP[i] 代表从第i个问题开始到最后一个问题，可获得的最高分数
         // 初始化
         int n = questions.size();
-        vector<long long> dp(n + 1, 0); // dp[n] = 0 作为越界哨兵
+        vector<long long> dp(n + 1, 0); // DP[n] = 0 作为越界哨兵
 
         // 计算顺序
         for (int i = n-1; i >= 0; i--) {

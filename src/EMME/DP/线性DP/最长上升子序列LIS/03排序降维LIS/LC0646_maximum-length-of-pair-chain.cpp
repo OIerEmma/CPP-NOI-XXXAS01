@@ -10,7 +10,7 @@ class Solution {
 public:
     // int findLongestChain(vector<vector<int>>& pairs) {
     //     int n = pairs.size();
-    //     vector<int> dp(n, 1);
+    //     vector<int> DP(n, 1);
     //     sort(pairs.begin(), pairs.end(), [](vector<int> &a, vector<int> &b) {
     //         return a[0] == b[0] ? a[1] < b[1] : a[0] < b[0];
     //     });
@@ -18,9 +18,9 @@ public:
     //     for (int i = 0; i < n; i++) {
     //         for (int j = 0; j < i; j++) {
     //             if (pairs[j][1] < pairs[i][0])
-    //                 dp[i] = max(dp[j] + 1, dp[i]);
+    //                 DP[i] = max(DP[j] + 1, DP[i]);
     //         }
-    //         ans = max(dp[i], ans);
+    //         ans = max(DP[i], ans);
     //     }
     //     return ans;
     // }

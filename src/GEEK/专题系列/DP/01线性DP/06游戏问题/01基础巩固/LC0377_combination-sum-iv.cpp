@@ -9,7 +9,7 @@ class Solution {
 public:
     int combinationSum4(vector<int>& nums, int target) {
         // 完全背包问题求方案数
-        // 状态定义：dp[j] 前i个数的总和恰好为j的总方案数
+        // 状态定义：DP[j] 前i个数的总和恰好为j的总方案数
         // 初始化
         vector<unsigned int> dp(target + 1, 0);
         dp[0] = 1;
@@ -25,7 +25,7 @@ public:
     int combinationSum4_2(vector<int>& nums, int target) {
         int n = nums.size();
         // 完全背包问题求方案数
-        // 状态定义：dp[i][j] 前i个数的总和恰好为j的总方案数
+        // 状态定义：DP[i][j] 前i个数的总和恰好为j的总方案数
         // 初始化
         vector<vector<unsigned int>> dp(n + 1, vector<unsigned int>(target + 1, 0));
         dp[0][0] = 1;
@@ -33,7 +33,7 @@ public:
         // for (int i = 1; i <= target; i++)
         //     for (int num: nums)
         //         if (i >= num)
-        //             dp[i] += dp[i - num];
+        //             DP[i] += DP[i - num];
         for (int i = 1; i <= n; i++)
             for (int j = 0; j <= target; j++) {
                 int maxK = j / nums[i - 1];

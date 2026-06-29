@@ -11,7 +11,7 @@ public:
     int maxResult(vector<int>& nums, int k) {
         int n = (int)nums.size();
         // 定义状态
-        // dp[i] 代表跳到第 i 个位置能得到的最大分数
+        // DP[i] 代表跳到第 i 个位置能得到的最大分数
         vector<int> dp(n + 1, -1e9);
         // 初始条件
         dp[0] = nums[0];
@@ -30,9 +30,9 @@ public:
         ② 从哪转移？状态转移过程
             · 对于所有从 0 到 i - 1 的 j
               如果 j + k >= i
-              dp[i] = dp[j] + nums[j]
+              DP[i] = DP[j] + nums[j]
         ③ dp值怎么变？状态计算结果
-            · dp[i] = max { dp[j] + nums[j], dp[i],
+            · DP[i] = max { DP[j] + nums[j], DP[i],
               0 <= j < i,
               j + k >= i }
         */

@@ -9,7 +9,7 @@ class Solution {
 public:
     long long mostPoints(vector<vector<int>>& questions) {
         // 定义状态
-        // dp[i] 代表从 i 到 n - 1 可以获得的最高分数
+        // DP[i] 代表从 i 到 n - 1 可以获得的最高分数
         // 初始化
         int n = questions.size();
         vector<long long> dp(n + 1, 0);

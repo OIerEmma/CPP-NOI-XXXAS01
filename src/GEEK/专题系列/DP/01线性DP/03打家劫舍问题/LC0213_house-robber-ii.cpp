@@ -18,7 +18,7 @@ public:
         // 计算顺序
         for (int i = 2; i <= n; i++)
             dp[i] = max(dp[i - 1], dp[i - 2] + nums[i - 1]);
-        // 返回结果 dp[n]
+        // 返回结果 DP[n]
         const int ans = dp[n];
 
         // 不偷最后1家
@@ -27,7 +27,7 @@ public:
         // 计算顺序
         for (int i = 2; i <= n; i++)
             dp[i] = max(dp[i - 1], dp[i - 2] + nums[i - 1]);
-        // 返回结果 dp[n - 1]
+        // 返回结果 DP[n - 1]
         return max(ans, dp[n - 1]);
     }
 };

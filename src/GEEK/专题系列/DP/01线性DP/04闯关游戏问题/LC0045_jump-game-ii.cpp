@@ -8,7 +8,7 @@ using namespace std;
 class Solution {
 public:
     int jump(vector<int>& nums) {
-        // dp[i] 从第 i 格开始跳转至最后的最少次数
+        // DP[i] 从第 i 格开始跳转至最后的最少次数
         // 初始化
         int n = nums.size();
         constexpr int INF = 1e9;

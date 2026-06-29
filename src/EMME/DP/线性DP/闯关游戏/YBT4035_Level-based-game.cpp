@@ -11,7 +11,7 @@ int n, m;
 int main() {
     cin >> n >> m;
     // 定义状态
-    // dp[i] 代表前 i 关能获得的最大分数（第i关分数不含）
+    // DP[i] 代表前 i 关能获得的最大分数（第i关分数不含）
     vector<int> a(m + 1), b(n + 1), dp(n + 1, NEG_INF);
     for (int i = 0; i < m; i++) cin >> a[i];
     for (int i = 0; i < n; i++) cin >> b[i];
@@ -21,7 +21,7 @@ int main() {
     for (int i = 0; i <= n; i++)
         for (int j = 0; j < m; j++)
             if (i >= a[j]) dp[i] = max(dp[i - a[j]] + b[i - a[j]], dp[i]);
-    // for (int i = 0; i <= n; i++) cout << dp[i] << " ";
+    // for (int i = 0; i <= n; i++) cout << DP[i] << " ";
     // cout << endl;
     int ans = NEG_INF;
     for (int i = 0; i < n; i++)

@@ -11,7 +11,7 @@ public:
      * TODO：该方法会 LTE，需要DP+滑动窗口优化
      */
     int maxResult(vector<int>& nums, int k) {
-        // dp[i] 从第i格开始跳转至最后时的最大得分
+        // DP[i] 从第i格开始跳转至最后时的最大得分
         int len = nums.size();
         constexpr int NEG_INF = -1e9;
         vector<int> dp(len, NEG_INF);

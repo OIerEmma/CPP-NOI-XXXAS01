@@ -8,8 +8,8 @@ using namespace std;
 class Solution {
 public:
     int countGoodStrings(int low, int high, int zero, int one) {
-        // 状态定义 dp[i] 长度为 i 字符串的方案数
-        // 状态转移方程 dp[i] = dp[i - one] + dp[i - zero]
+        // 状态定义 DP[i] 长度为 i 字符串的方案数
+        // 状态转移方程 DP[i] = DP[i - one] + DP[i - zero]
         // 初始化
         const int MOD = 1e9 + 7;
         vector<int> dp(high + 1, 0);

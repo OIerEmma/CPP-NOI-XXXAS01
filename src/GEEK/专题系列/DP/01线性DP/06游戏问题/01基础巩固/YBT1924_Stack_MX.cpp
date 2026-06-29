@@ -9,7 +9,7 @@ int main() {
     // 输入
     int n;
     cin >> n;
-    // 状态定义：dp[i][j] 表示还有i个元素待入栈、栈中有j个元素的总方案数
+    // 状态定义：DP[i][j] 表示还有i个元素待入栈、栈中有j个元素的总方案数
     // 初始化
     vector<vector<int>> dp(n + 1, vector<int>(n + 1, 0));
     dp[n][0] = 1;

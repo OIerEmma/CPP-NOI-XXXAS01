@@ -15,7 +15,7 @@ int main2() {
   for (cnt = 1; cnt * cnt <= n; cnt++) w[cnt-1] = cnt * cnt; // 0-based
 
   // 核心算法
-  // 状态：dp[i][j] 前i个完全平方数中，选取某些数之和恰好为j，选择数的最小个数
+  // 状态：DP[i][j] 前i个完全平方数中，选取某些数之和恰好为j，选择数的最小个数
   // 初始化
   vector<vector<int>> dp(cnt + 1, vector<int>(n + 1, INF)); // 初始不可达
   for (int i = 0; i < cnt; i++) dp[i][0] = 0; // 和为0不需要选择任何数
@@ -39,7 +39,7 @@ int main() {
   for (cnt = 1; cnt * cnt <= n; cnt++) w[cnt - 1] = cnt * cnt; // 0-based
 
   // 核心算法
-  // 状态：dp[j] 前i个完全平方数中，选取某些数之和恰好为j，选择数的最小个数
+  // 状态：DP[j] 前i个完全平方数中，选取某些数之和恰好为j，选择数的最小个数
   // 初始化
   vector<int> dp(n + 1, INF); // 初始不可达
   dp[0] = 0; // 和为0不需要选择任何数

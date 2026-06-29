@@ -9,7 +9,7 @@ using namespace std;
 class Solution {
 public:
     int maxResult(vector<int>& nums, int k) {
-        // dp[i] 从第i格开始跳转至最后时的最大得分
+        // DP[i] 从第i格开始跳转至最后时的最大得分
         int len = nums.size();
         constexpr int NEG_INF = -1e9;
         vector<int> dp(len, NEG_INF);
@@ -26,7 +26,7 @@ public:
     // 顺序
     int maxResult2(vector<int>& nums, int k) {
         int len = nums.size();
-        // dp[i] 到达位置i的最大得分
+        // DP[i] 到达位置i的最大得分
         vector<int> dp(len, 0);
         dp[0] = nums[0]; // 起点得分就是第一个格子的分数
 
@@ -51,7 +51,7 @@ public:
     // 逆序
     int maxResult3(vector<int>& nums, int k) {
         int len = nums.size();
-        // dp[i] 从i跳到终点的最大得分
+        // DP[i] 从i跳到终点的最大得分
         vector<int> dp(len, 0);
         dp[len - 1] = nums[len - 1]; // 终点得分就是最后一个格子的分数
 

@@ -8,7 +8,7 @@ int main() {
     int n, a, b, c;
     cin >> n >> a >> b >> c;
     const int OFFSET = n, MOD = 1e9 + 7;
-    // 状态定义：dp[i] 从n开始减少到恰好i的总方案数
+    // 状态定义：DP[i] 从n开始减少到恰好i的总方案数
     // 初始化
     vector<int> dp(2 * n + 5, 0);
     dp[n + OFFSET] = 1;

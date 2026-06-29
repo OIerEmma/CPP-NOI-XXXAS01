@@ -10,7 +10,7 @@ public:
     int canJump(vector<int>& nums) {
         int n = (int)nums.size();
         // 定义状态
-        // dp[i] 代表能否跳到第 i 个位置
+        // DP[i] 代表能否跳到第 i 个位置
         vector<bool> dp(n + 1, false);
         // 初始条件
         dp[0] = true;
@@ -28,10 +28,10 @@ public:
             · i + j < n
         ② 从哪转移？状态转移过程
             · 对于所有从 0 到 i - 1 的 j
-              如果 j + nums[j] >= i 且来源是可以到达的 dp[j]
-              dp[i] = true
+              如果 j + nums[j] >= i 且来源是可以到达的 DP[j]
+              DP[i] = true
         ③ dp值怎么变？状态计算结果
-            · dp[i] = max{dp[j] + 1, 0 <= j < i, j + nums[j] >= i}
+            · DP[i] = max{DP[j] + 1, 0 <= j < i, j + nums[j] >= i}
         */
     }
 };

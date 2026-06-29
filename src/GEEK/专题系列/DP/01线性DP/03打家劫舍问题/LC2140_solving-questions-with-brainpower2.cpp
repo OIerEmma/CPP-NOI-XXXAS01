@@ -11,8 +11,8 @@ public:
         int n = questions.size();
         if (n == 1) return questions[0][0]; // 特判案例
         // 状态定义
-        // dp[i][0] 前i个问题且第i个问题做的最高分
-        // dp[i][1] 前i个问题且第i个问题不做的最高分
+        // DP[i][0] 前i个问题且第i个问题做的最高分
+        // DP[i][1] 前i个问题且第i个问题不做的最高分
         // 预处理：jump_to 表
         vector<vector<int>> jump_to(n + 1);
         for (int next, i = 1; i <= n; i++) {

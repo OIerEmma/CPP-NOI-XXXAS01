@@ -8,7 +8,7 @@ using namespace std;
 class Solution {
 public:
     bool canJump(vector<int>& nums) {
-        // dp[i] 从i为起点，是否可以跳到终点 true是/false否
+        // DP[i] 从i为起点，是否可以跳到终点 true是/false否
         int n = nums.size();
         vector<bool> dp(n, false);
         dp[n - 1] = true;

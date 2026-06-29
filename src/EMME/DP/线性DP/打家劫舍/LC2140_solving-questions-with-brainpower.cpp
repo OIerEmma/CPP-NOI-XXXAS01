@@ -9,8 +9,8 @@ class Solution {
 public:
     long long mostPoints(vector<vector<int>>& questions) {
         // 状态定义
-        // dp[i][0] 前i个问题且第i个问题做的最高分
-        // dp[i][1] 前i个问题且第i个问题不做的最高分
+        // DP[i][0] 前i个问题且第i个问题做的最高分
+        // DP[i][1] 前i个问题且第i个问题不做的最高分
         int n = questions.size();
         if (n == 1) return questions[0][0];
 
@@ -23,7 +23,7 @@ public:
 
         // 初始化
         vector<vector<int>> dp(n + 1, vector<int>(2, 0));
-        // for (int i = 1; i <= n; i++) dp[i][0] = questions[i - 1][0];
+        // for (int i = 1; i <= n; i++) DP[i][0] = questions[i - 1][0];
         const int NEG_INF = -1e9;
         dp[0][0] = NEG_INF;
         dp[0][1] = 0;
@@ -46,7 +46,7 @@ public:
 
     long long mostPoints2(vector<vector<int>>& questions) {
         int n = questions.size();
-        // dp[i][0] / dp[i][1] 对应前 i 题的状态（0‑based 题目索引为 i-1）
+        // DP[i][0] / DP[i][1] 对应前 i 题的状态（0‑based 题目索引为 i-1）
         vector<vector<long long>> dp(n + 1, vector<long long>(2, 0));
 
         // 跳跃来源表：jump_to[k] 存放所有能恰好跳到第 k 题（0‑based）的题号 j

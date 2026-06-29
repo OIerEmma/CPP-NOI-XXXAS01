@@ -11,7 +11,7 @@ int main() {
     cin >> n >> m;
     vector<int> arr(n);
     for (int i = 0; i < n; i++) cin >> arr[i];
-    // 状态定义 dp[i] 点菜恰好i元的方案总数
+    // 状态定义 DP[i] 点菜恰好i元的方案总数
     // 初始化
     vector<int> dp(m + 1, 0);
     dp[0] = 1;

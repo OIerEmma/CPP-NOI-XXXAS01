@@ -9,7 +9,7 @@ int main() {
     int n;
     cin >> n;
     const int INF = 1e9;
-    // dp[i] 从第1格跳转至第i格的最少次数
+    // DP[i] 从第1格跳转至第i格的最少次数
     vector<int> dp(n + 1, INF);
     dp[0] = 0, dp[1] = 0;
     for (int i = 2; i <= n; i++) {

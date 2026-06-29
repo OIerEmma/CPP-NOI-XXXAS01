@@ -7,7 +7,7 @@ const int MOD = 1e9 + 7;  // 题目要求取模
 
 // 全局变量定义
 vector<int> a(N, 0);  // int a[N];
-vector<long long> dp(N, 0);  // long long dp[N];
+vector<long long> dp(N, 0);  // long long DP[N];
 vector<int> children[N];
 
 int main() {

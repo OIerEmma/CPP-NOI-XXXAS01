@@ -8,7 +8,7 @@ using namespace std;
 int main() {
     int n;
     cin >> n;
-    // 状态定义: dp[i][j] 当前栈中有j个元素、还剩i个元素待入栈的方案数
+    // 状态定义: DP[i][j] 当前栈中有j个元素、还剩i个元素待入栈的方案数
     // 初始化
     vector<vector<int>> dp(n + 1, vector<int>(n + 1, 0));
     dp[n][0] = 1;
