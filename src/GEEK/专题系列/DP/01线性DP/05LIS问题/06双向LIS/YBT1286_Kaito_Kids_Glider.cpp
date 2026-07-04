@@ -7,6 +7,18 @@
 using namespace std;
 
 int main() {
+    int n, target;
+    cin >> n;
+    vector<int> m(n);
+    for (int i = 1; i <= n; i++)
+        cin >> m[i];
+    cin >> target;
+    sort(m.begin(), m.end());
+    auto it = lower_bound(m.begin(), m.end(), target);
+    if (it == m.end()) cout << -1 << endl;
+    else cout << *it << endl;
+
+    /* ---------------------
     int k;
     cin >> k;
     while (k--) {
@@ -30,7 +42,21 @@ int main() {
         }
 
         cout << max(t1.size(), t2.size()) << endl;
-    }
+    }*/
+
+    int n, target;
+    cin >> n;
+    vector<int> a(n);
+    for (int i = 0; i < n; i++) cin >> a[i];
+    cin >> target;
+    sort(a.begin(), a.end());
+    for (int i = 0; i < n; i++) cout << a[i] << " ";
+    cout << endl;
+    // auto it = lower_bound(a.begin(), a.end(), target);
+    auto it = upper_bound(a.begin(), a.end(), target);
+    if (it == a.end()) cout << -1 << endl;
+    else cout << *it << endl;
+
     return 0;
 }
 
