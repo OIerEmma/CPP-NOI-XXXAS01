@@ -5,7 +5,7 @@
 using namespace std;
 
 int main() {
-    cout << "CSP-J2024 rp++" << endl;
+    cout << "CSP-J2026 RP++" << endl;
     return 0;
 }
 /*
