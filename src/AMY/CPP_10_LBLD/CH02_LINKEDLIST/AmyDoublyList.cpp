@@ -81,5 +81,30 @@ int main() {
     p->next = newNode;
     printLinkedList(head);
 
+    DoublyListNode<int>* p2 = head;
+    for (int i = 0; i < 2; ++i) {
+        p2 = p2->next;
+    }
+
+    DoublyListNode<int>* toDelete = p->next;
+
+    p->next = toDelete->next;
+    toDelete->next->prev = p;
+
+    toDelete->next = nullptr;
+    toDelete->prev = nullptr;
+
+    DoublyListNode<int>* toDelete2 = head;
+    head = head->next;
+    head->prev = nullptr;
+
+    toDelete2->next = nullptr;
+
+    DoublyListNode<int>* p3 = head;
+    while (p->next != nullptr) {
+        p = p->next;
+    }
+    p->prev->next = nullptr;
+    p->prev = nullptr;
     return 0;
 }

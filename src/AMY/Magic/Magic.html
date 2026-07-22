@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌟 照片说话魔法阵 🌟</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            background: #0a0e27;
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: #e0e0ff;
+        }
+
+        /* 星空背景 */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle var(--duration) ease-in-out infinite;
+            opacity: var(--opacity);
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: var(--opacity); transform: scale(1); }
+            50% { opacity: 0.2; transform: scale(0.8); }
+        }
+
+        /* 流星 */
+        .shooting-star {
+            position: absolute;
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #fff, transparent);
+            animation: shoot 3s linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes shoot {
+            0% { transform: translateX(-100px) translateY(100px); opacity: 1; }
+            100% { transform: translateX(300px) translateY(-100px); opacity: 0; }
+        }
+
+        /* 主容器 */
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #8892b0;
+            margin-bottom: 40px;
+            font-size: 1.1em;
+        }
+
+        /* 魔法阵布局 */
+        .magic-circle {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        @media (max-width: 900px) {
+            .magic-circle {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 魔法道具面板 */
+        .props-panel {
+            background: rgba(16, 20, 50, 0.7);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .panel-title {
+            font-size: 1.3em;
+            margin-bottom: 25px;
+            color: #a78bfa;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .prop-item {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .prop-label {
+            display: block;
+            margin-bottom: 8px;
+            color: #b8c5d6;
+            font-size: 0.95em;
+            font-weight: 500;
+        }
+
+        .prop-icon {
+            margin-right: 6px;
+        }
+
+        /* 输入框样式 */
+        .magic-input {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(10, 14, 39, 0.8);
+            border: 1px solid rgba(102, 126, 234, 0.4);
+            border-radius: 12px;
+            color: #e0e0ff;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .magic-input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .magic-input::placeholder {
+            color: #4a5568;
+        }
+
+        /* 文件上传区域 */
+        .upload-zone {
+            border: 2px dashed rgba(102, 126, 234, 0.5);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(10, 14, 39, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .upload-zone:hover {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .upload-zone.has-image {
+            border-style: solid;
+            border-color: #48bb78;
+            padding: 10px;
+        }
+
+        .upload-zone input[type="file"] {
+            display: none;
+        }
+
+        .upload-preview {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .upload-preview.active {
+            display: block;
+            margin: 0 auto;
+        }
+
+        .upload-text {
+            color: #8892b0;
+        }
+
+        /* 音色选择 */
+        .voice-selector {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .voice-option {
+            position: relative;
+        }
+
+        .voice-option input {
+            display: none;
+        }
+
+        .voice-card {
+            padding: 15px;
+            background: rgba(10, 14, 39, 0.8);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .voice-card:hover {
+            border-color: rgba(102, 126, 234, 0.6);
+        }
+
+        .voice-option input:checked + .voice-card {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.15);
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.2);
+        }
+
+        .voice-emoji {
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
+
+        .voice-name {
+            font-size: 0.9em;
+            color: #e0e0ff;
+        }
+
+        .voice-desc {
+            font-size: 0.75em;
+            color: #8892b0;
+            margin-top: 3px;
+        }
+
+        /* 施法按钮 */
+        .cast-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .cast-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .cast-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .cast-btn .btn-shine {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .cast-btn:hover:not(:disabled) .btn-shine {
+            left: 100%;
+        }
+
+        /* 水晶球屏幕 */
+        .crystal-ball {
+            background: rgba(16, 20, 50, 0.7);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .screen-title {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            color: #a78bfa;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .screen-container {
+            flex: 1;
+            background: rgba(5, 8, 25, 0.9);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 350px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .screen-placeholder {
+            text-align: center;
+            color: #4a5568;
+        }
+
+        .screen-placeholder .placeholder-icon {
+            font-size: 4em;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+
+        .screen-video {
+            width: 100%;
+            height: 100%;
+            max-height: 450px;
+            border-radius: 12px;
+            display: none;
+        }
+
+        .screen-video.active {
+            display: block;
+        }
+
+        /* 魔法粒子效果 */
+        .magic-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #667eea;
+            border-radius: 50%;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) scale(1); opacity: 0; }
+            50% { transform: translateY(-100px) scale(1.5); opacity: 1; }
+        }
+
+        /* 状态日志 */
+        .spell-log {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(5, 8, 25, 0.9);
+            border-radius: 12px;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .log-title {
+            font-size: 0.85em;
+            color: #667eea;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .log-entry {
+            font-size: 0.8em;
+            padding: 4px 0;
+            color: #8892b0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            animation: fadeIn 0.3s ease;
+            word-break: break-all;
+        }
+
+        .log-entry.success { color: #48bb78; }
+        .log-entry.error { color: #f56565; }
+        .log-entry.process { color: #ed8936; }
+        .log-entry.warn { color: #ecc94b; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(-10px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* 加载动画 */
+        .loading-ring {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            border-top-color: #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            vertical-align: middle;
+            margin-left: 8px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* 进度条 */
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(102, 126, 234, 0.2);
+            border-radius: 2px;
+            margin-top: 15px;
+            overflow: hidden;
+            display: none;
+        }
+
+        .progress-bar.active {
+            display: block;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 2px;
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+
+        /* 响应式 */
+        @media (max-width: 600px) {
+            h1 { font-size: 1.8em; }
+            .voice-selector { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+<!-- 星空背景 -->
+<div class="stars" id="stars"></div>
+
+<div class="container">
+    <h1>🔮 照片说话魔法阵</h1>
+    <p class="subtitle">上传人脸照片，赋予它说话的能力</p>
+
+    <div class="magic-circle">
+        <!-- 左侧：魔法道具 -->
+        <div class="props-panel">
+            <div class="panel-title">
+                <span>🎒</span>
+                <span>魔法道具包</span>
+            </div>
+
+            <!-- 道具1：API钥匙 -->
+            <div class="prop-item">
+                <label class="prop-label">
+                    <span class="prop-icon">🗝️</span>API 钥匙
+                </label>
+                <input type="password" id="apiKey" class="magic-input" placeholder="请输入你的 D-ID API 密钥...">
+                <div style="font-size: 0.75em; color: #4a5568; margin-top: 5px;">
+                    💡 支持格式: 纯密钥 或 Basic xxx 或 用户名:密码
+                </div>
+            </div>
+
+            <!-- 道具2：人脸照片 -->
+            <div class="prop-item">
+                <label class="prop-label">
+                    <span class="prop-icon">🖼️</span>人脸照片
+                </label>
+                <div class="upload-zone" id="uploadZone" onclick="document.getElementById('photoInput').click()">
+                    <input type="file" id="photoInput" accept="image/jpeg,image/png" onchange="handlePhotoUpload(event)">
+                    <img id="photoPreview" class="upload-preview" alt="预览">
+                    <div class="upload-text" id="uploadText">
+                        <div style="font-size: 2em; margin-bottom: 10px;">📤</div>
+                        <div>点击上传人脸照片</div>
+                        <div style="font-size: 0.85em; margin-top: 5px; opacity: 0.7;">JPG / PNG，需清晰正脸</div>
+                    </div>
+                </div>
+                <div style="font-size: 0.75em; color: #4a5568; margin-top: 5px;">
+                    ⚠️ 要求：正脸、无遮挡、200×200像素以上、中性表情
+                </div>
+            </div>
+
+            <!-- 道具3：台词 -->
+            <div class="prop-item">
+                <label class="prop-label">
+                    <span class="prop-icon">📝</span>魔法台词
+                </label>
+                <textarea id="scriptText" class="magic-input" rows="3" placeholder="请输入想让照片说的话...">Hello! I am brought to life by magic. Nice to meet you!</textarea>
+            </div>
+
+            <!-- 道具4：音色选择 -->
+            <div class="prop-item">
+                <label class="prop-label">
+                    <span class="prop-icon">🎙️</span>音色魔瓶
+                </label>
+                <div class="voice-selector">
+                    <label class="voice-option">
+                        <input type="radio" name="voice" value="en-US-JasonNeural" checked>
+                        <div class="voice-card">
+                            <div class="voice-emoji">👨</div>
+                            <div class="voice-name">沉稳男声</div>
+                            <div class="voice-desc">Jason (美式)</div>
+                        </div>
+                    </label>
+                    <label class="voice-option">
+                        <input type="radio" name="voice" value="en-US-AriaNeural">
+                        <div class="voice-card">
+                            <div class="voice-emoji">👩</div>
+                            <div class="voice-name">温柔女声</div>
+                            <div class="voice-desc">Aria (美式)</div>
+                        </div>
+                    </label>
+                    <label class="voice-option">
+                        <input type="radio" name="voice" value="en-GB-RyanNeural">
+                        <div class="voice-card">
+                            <div class="voice-emoji">🎩</div>
+                            <div class="voice-name">绅士男声</div>
+                            <div class="voice-desc">Ryan (英式)</div>
+                        </div>
+                    </label>
+                    <label class="voice-option">
+                        <input type="radio" name="voice" value="en-GB-SoniaNeural">
+                        <div class="voice-card">
+                            <div class="voice-emoji">👸</div>
+                            <div class="voice-name">优雅女声</div>
+                            <div class="voice-desc">Sonia (英式)</div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- 道具5：开始施法 -->
+            <button class="cast-btn" id="castBtn" onclick="startSpell()">
+                <span class="btn-shine"></span>
+                <span id="btnText">✨ 开始施法</span>
+            </button>
+
+            <!-- 进度条 -->
+            <div class="progress-bar" id="progressBar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+
+        <!-- 右侧：水晶球屏幕 -->
+        <div class="crystal-ball">
+            <div class="screen-title">
+                <span>🔮</span>
+                <span>预言水晶球</span>
+            </div>
+            <div class="screen-container" id="screenContainer">
+                <div class="magic-particles" id="particles"></div>
+                <div class="screen-placeholder" id="placeholder">
+                    <div class="placeholder-icon">🌙</div>
+                    <div>等待施法...</div>
+                    <div style="font-size: 0.85em; margin-top: 8px; opacity: 0.6;">魔法完成后，视频将在此显现</div>
+                </div>
+                <!-- 修复：移除 crossorigin，使用 source 标签，添加 playsinline -->
+                <video class="screen-video" id="resultVideo" controls loop preload="metadata" playsinline>
+                    <source id="videoSource" src="" type="video/mp4">
+                    您的浏览器不支持视频播放
+                </video>
+            </div>
+
+            <!-- 魔法日志 -->
+            <div class="spell-log" id="spellLog">
+                <div class="log-title">📜 施法记录</div>
+                <div id="logContent">
+                    <div class="log-entry">魔法阵已准备就绪，等待施法者...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ========== 星空背景生成 ==========
+    function createStars() {
+        const starsContainer = document.getElementById('stars');
+        const count = 150;
+
+        for (let i = 0; i < count; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            const size = Math.random() * 3 + 1;
+            star.style.width = size + 'px';
+            star.style.height = size + 'px';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+            star.style.setProperty('--opacity', Math.random() * 0.7 + 0.3);
+            star.style.animationDelay = Math.random() * 5 + 's';
+            starsContainer.appendChild(star);
+        }
+
+        for (let i = 0; i < 3; i++) {
+            const shooting = document.createElement('div');
+            shooting.className = 'shooting-star';
+            shooting.style.top = Math.random() * 50 + '%';
+            shooting.style.left = Math.random() * 50 + '%';
+            shooting.style.animationDelay = Math.random() * 10 + 's';
+            shooting.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            starsContainer.appendChild(shooting);
+        }
+    }
+
+    // ========== 魔法粒子 ==========
+    function createParticles() {
+        const container = document.getElementById('particles');
+        for (let i = 0; i < 20; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.style.left = Math.random() * 100 + '%';
+            p.style.bottom = '0';
+            p.style.animationDelay = Math.random() * 3 + 's';
+            p.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            container.appendChild(p);
+        }
+    }
+
+    // ========== 照片上传处理 ==========
+    let selectedFile = null;
+
+    function handlePhotoUpload(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        if (!['image/jpeg', 'image/png'].includes(file.type)) {
+            addLog('❌ 错误：仅支持 JPG 或 PNG 格式图片！', 'error');
+            return;
+        }
+
+        selectedFile = file;
+        const preview = document.getElementById('photoPreview');
+        const uploadZone = document.getElementById('uploadZone');
+        const uploadText = document.getElementById('uploadText');
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            preview.src = e.target.result;
+            preview.classList.add('active');
+            uploadZone.classList.add('has-image');
+            uploadText.style.display = 'none';
+            addLog('📸 照片已装入魔法袋：' + file.name + ' (' + (file.size/1024).toFixed(1) + 'KB)', 'success');
+        };
+        reader.readAsDataURL(file);
+    }
+
+    // ========== 日志系统 ==========
+    function addLog(message, type = '') {
+        const logContent = document.getElementById('logContent');
+        const entry = document.createElement('div');
+        entry.className = 'log-entry ' + type;
+        const time = new Date().toLocaleTimeString('zh-CN', { hour12: false });
+        entry.textContent = `[${time}] ${message}`;
+        logContent.insertBefore(entry, logContent.firstChild);
+        document.getElementById('spellLog').scrollTop = 0;
+    }
+
+    // ========== 进度条 ==========
+    function setProgress(percent) {
+        const bar = document.getElementById('progressBar');
+        const fill = document.getElementById('progressFill');
+        bar.classList.add('active');
+        fill.style.width = percent + '%';
+    }
+
+    function hideProgress() {
+        document.getElementById('progressBar').classList.remove('active');
+        setTimeout(() => {
+            document.getElementById('progressFill').style.width = '0%';
+        }, 300);
+    }
+
+    // ========== 核心魔法流程 ==========
+    async function startSpell() {
+        const apiKey = document.getElementById('apiKey').value.trim();
+        const scriptText = document.getElementById('scriptText').value.trim();
+        const voice = document.querySelector('input[name="voice"]:checked').value;
+        const btn = document.getElementById('castBtn');
+        const btnText = document.getElementById('btnText');
+
+        if (!apiKey) {
+            addLog('❌ 错误：请先放入 API 钥匙！', 'error');
+            document.getElementById('apiKey').focus();
+            return;
+        }
+        if (!selectedFile) {
+            addLog('❌ 错误：请先上传人脸照片！', 'error');
+            return;
+        }
+        if (!scriptText) {
+            addLog('❌ 错误：台词不能为空！', 'error');
+            return;
+        }
+
+        // 重置视频状态
+        btn.disabled = true;
+        btnText.innerHTML = '施法中<span class="loading-ring"></span>';
+
+        const video = document.getElementById('resultVideo');
+        const source = document.getElementById('videoSource');
+        video.classList.remove('active');
+        source.src = '';
+        video.load();
+        document.getElementById('placeholder').style.display = 'flex';
+
+        // 移除旧的错误监听器
+        video.onerror = null;
+        video.onloadedmetadata = null;
+        video.oncanplay = null;
+
+        addLog('🌟 魔法仪式开始...');
+
+        try {
+            // ========== 步骤1：API钥匙穿上Basic保护衣 ==========
+            setProgress(10);
+            addLog('🛡️ 正在为 API 钥匙穿上 Basic 保护衣...', 'process');
+
+            let cleanKey = apiKey.replace(/：/g, ':');
+            if (cleanKey.startsWith('Basic ')) {
+                cleanKey = cleanKey.substring(6).trim();
+            }
+
+            let basicAuth;
+            if (cleanKey.includes(':')) {
+                basicAuth = 'Basic ' + btoa(unescape(encodeURIComponent(cleanKey)));
+            } else {
+                basicAuth = 'Basic ' + btoa(unescape(encodeURIComponent(cleanKey + ':')));
+            }
+
+            addLog('✅ Basic 保护衣已穿好', 'success');
+
+            // ========== 步骤2：上传照片到 D-ID ==========
+            setProgress(25);
+            addLog('📦 正在将照片打包成 "image" 包裹，送往 D-ID 魔法邮局...', 'process');
+
+            const imageUrl = await uploadImage(selectedFile, basicAuth);
+            addLog('✅ 照片已送达，获得链接：' + imageUrl.substring(0, 60) + '...', 'success');
+
+            // ========== 步骤3：创建说话任务 ==========
+            setProgress(45);
+            addLog('🎭 正在携带照片和台词，前往 talks 神殿创建任务...', 'process');
+
+            const talkId = await createTalk(imageUrl, scriptText, voice, basicAuth);
+            addLog('✅ 说话任务已创建，任务 ID：' + talkId, 'success');
+
+            // ========== 步骤4：等待视频生成 ==========
+            setProgress(60);
+            addLog('⏳ 正在 talks/' + talkId + ' 处等待视频炼成（约需 15-60 秒）...', 'process');
+
+            const videoUrl = await pollTalkStatus(talkId, basicAuth);
+
+            setProgress(100);
+            addLog('🎉 魔法完成！视频已生成！', 'success');
+            addLog('🔗 视频链接：' + videoUrl.substring(0, 60) + '...', 'success');
+
+            // ========== 步骤5：播放视频（双保险策略） ==========
+            await playVideoWithFallback(video, source, videoUrl);
+
+        } catch (error) {
+            addLog('💥 施法失败：' + error.message, 'error');
+            console.error('完整错误:', error);
+        } finally {
+            btn.disabled = false;
+            btnText.textContent = '✨ 开始施法';
+            setTimeout(hideProgress, 1500);
+        }
+    }
+
+    // ========== 视频播放双保险策略 ==========
+    async function playVideoWithFallback(video, source, url) {
+        addLog('📺 正在尝试播放视频...', 'process');
+
+        return new Promise((resolve, reject) => {
+            let fallbackAttempted = false;
+
+            // 错误处理：如果直接播放失败，自动降级为 fetch blob 方式
+            const handleError = async (e) => {
+                const error = video.error;
+                let errorMsg = '未知错误';
+
+                if (error) {
+                    const errorMap = {
+                        1: 'MEDIA_ERR_ABORTED (用户中止)',
+                        2: 'MEDIA_ERR_NETWORK (网络错误)',
+                        3: 'MEDIA_ERR_DECODE (解码错误)',
+                        4: 'MEDIA_ERR_SRC_NOT_SUPPORTED (格式不支持/CORS)'
+                    };
+                    errorMsg = errorMap[error.code] || `Code ${error.code}`;
+                }
+
+                addLog(`⚠️ 直接播放失败：${errorMsg}`, 'warn');
+                console.error('Video error details:', error);
+
+                // 如果是网络/CORS/格式错误，尝试 fetch blob 方式
+                if (!fallbackAttempted && error && (error.code === 2 || error.code === 4)) {
+                    fallbackAttempted = true;
+                    addLog('🔄 启动备用方案：通过 Fetch 下载视频到本地播放...', 'process');
+
+                    try {
+                        const blobUrl = await fetchVideoAsBlob(url);
+                        source.src = blobUrl;
+                        video.load();
+
+                        video.oncanplay = () => {
+                            addLog('✅ 本地 Blob 播放成功！', 'success');
+                            video.play().catch(e => {
+                                addLog('⚠️ 自动播放被阻止，请手动点击播放', 'warn');
+                            });
+                            resolve();
+                        };
+
+                        video.onerror = (e2) => {
+                            addLog('❌ Blob 方式也失败了', 'error');
+                            reject(new Error('视频无法播放，请尝试直接访问链接下载'));
+                        };
+
+                    } catch (fetchErr) {
+                        addLog('❌ Fetch 下载失败：' + fetchErr.message, 'error');
+                        reject(fetchErr);
+                    }
+                } else {
+                    reject(new Error('视频播放失败：' + errorMsg));
+                }
+            };
+
+            // 成功处理
+            video.onloadedmetadata = () => {
+                addLog(`📺 视频元数据加载成功，时长：${video.duration.toFixed(1)} 秒`, 'success');
+            };
+
+            video.oncanplay = () => {
+                addLog('✅ 视频可以播放了！', 'success');
+                video.play().catch(e => {
+                    addLog('⚠️ 自动播放被浏览器阻止，请手动点击播放', 'warn');
+                });
+                resolve();
+            };
+
+            video.onerror = handleError;
+
+            // 设置源并加载
+            source.src = url;
+            source.type = 'video/mp4';
+            video.classList.add('active');
+            document.getElementById('placeholder').style.display = 'none';
+            video.load();
+
+            addLog('📡 已设置视频源，等待浏览器加载...', 'process');
+        });
+    }
+
+    // ========== Fetch Blob 备用方案 ==========
+    async function fetchVideoAsBlob(url) {
+        addLog('⬇️ 正在下载视频数据...', 'process');
+
+        const response = await fetch(url, {
+            method: 'GET',
+            // 不发送任何认证头，因为 result_url 应该是公开可访问的
+        });
+
+        if (!response.ok) {
+            throw new Error(`下载视频失败: ${response.status} ${response.statusText}`);
+        }
+
+        const contentLength = response.headers.get('content-length');
+        if (contentLength) {
+            addLog(`📦 视频大小：${(parseInt(contentLength)/1024).toFixed(1)} KB`, 'process');
+        }
+
+        const blob = await response.blob();
+        addLog('✅ 视频数据下载完成，正在生成本地播放链接...', 'success');
+
+        return URL.createObjectURL(blob);
+    }
+
+    // ========== API 调用函数 ==========
+
+    async function uploadImage(file, basicAuth) {
+        const formData = new FormData();
+        formData.append('image', file);
+
+        const response = await fetch('https://api.d-id.com/images', {
+            method: 'POST',
+            headers: {
+                'Authorization': basicAuth
+            },
+            body: formData
+        });
+
+        const responseText = await response.text();
+        let data;
+        try {
+            data = JSON.parse(responseText);
+        } catch (e) {
+            throw new Error('图片上传返回非JSON：' + responseText.substring(0, 200));
+        }
+
+        if (!response.ok) {
+            throw new Error('图片上传失败 (' + response.status + '): ' + (data.description || data.message || responseText));
+        }
+
+        const url = data.url || data.image_url || data.link || data.secure_url || data.public_url;
+
+        if (!url) {
+            addLog('📋 上传响应字段：' + JSON.stringify(data).substring(0, 200), 'warn');
+            throw new Error('无法从上传响应中获取图片 URL');
+        }
+
+        return url;
+    }
+
+    async function createTalk(imageUrl, script, voiceId, basicAuth) {
+        if (!script || script.length < 1) {
+            throw new Error('台词不能为空');
+        }
+
+        const payload = {
+            source_url: imageUrl,
+            script: {
+                type: 'text',
+                input: script,
+                provider: {
+                    type: 'microsoft',
+                    voice_id: voiceId
+                }
+            }
+        };
+
+        addLog('📤 请求体预览：' + JSON.stringify(payload).substring(0, 150) + '...', 'process');
+
+        const response = await fetch('https://api.d-id.com/talks', {
+            method: 'POST',
+            headers: {
+                'Authorization': basicAuth,
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+
+        const responseText = await response.text();
+        let data;
+        try {
+            data = JSON.parse(responseText);
+        } catch (e) {
+            throw new Error('创建任务返回非JSON：' + responseText.substring(0, 200));
+        }
+
+        if (!response.ok) {
+            throw new Error('创建任务失败 (' + response.status + '): ' + (data.description || data.message || responseText));
+        }
+
+        if (!data.id) {
+            throw new Error('创建任务成功但未返回 ID：' + JSON.stringify(data));
+        }
+
+        return data.id;
+    }
+
+    async function pollTalkStatus(talkId, basicAuth) {
+        const maxAttempts = 40;
+        const interval = 5000;
+
+        for (let i = 0; i < maxAttempts; i++) {
+            const response = await fetch('https://api.d-id.com/talks/' + talkId, {
+                method: 'GET',
+                headers: {
+                    'Authorization': basicAuth,
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            });
+
+            const responseText = await response.text();
+            let data;
+            try {
+                data = JSON.parse(responseText);
+            } catch (e) {
+                throw new Error('查询状态返回非JSON：' + responseText.substring(0, 200));
+            }
+
+            if (!response.ok) {
+                throw new Error('查询状态失败 (' + response.status + '): ' + (data.description || responseText));
+            }
+
+            const status = data.status;
+            const resultUrl = data.result_url;
+
+            if (status === 'done') {
+                if (!resultUrl) {
+                    addLog('⚠️ 状态为 done 但 result_url 为空', 'warn');
+                    throw new Error('视频处理完成但未返回视频链接');
+                }
+                addLog(`✅ 第 ${i + 1} 次探查：状态 [${status}]，视频已就绪`, 'success');
+                return resultUrl;
+            } else if (status === 'failed') {
+                const errorMsg = data.error || data.description || '未知错误';
+                addLog('❌ 视频处理失败：' + errorMsg, 'error');
+
+                if (errorMsg.includes('face') || errorMsg.includes('detect')) {
+                    addLog('💡 提示：请确保上传的是清晰的人脸正面照片', 'warn');
+                } else if (errorMsg.includes('moderation')) {
+                    addLog('💡 提示：图片未通过内容审核，请更换图片', 'warn');
+                } else if (errorMsg.includes('credit')) {
+                    addLog('💡 提示：账户积分不足，请检查 D-ID 账户', 'warn');
+                }
+
+                throw new Error('视频处理失败：' + errorMsg);
+            } else if (status === 'started' || status === 'created' || status === 'in_progress') {
+                addLog(`⏳ 第 ${i + 1} 次探查：状态 [${status}]，正在炼成中...`, 'process');
+            } else {
+                addLog(`🔍 第 ${i + 1} 次探查：状态 [${status}]`, 'warn');
+            }
+
+            setProgress(60 + Math.floor((i / maxAttempts) * 35));
+            await new Promise(resolve => setTimeout(resolve, interval));
+        }
+
+        throw new Error('等待超时，请稍后手动查询任务状态');
+    }
+
+    // ========== 初始化 ==========
+    createStars();
+    createParticles();
+</script>
+</body>
+</html>
