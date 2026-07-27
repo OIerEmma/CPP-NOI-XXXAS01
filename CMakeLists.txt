@@ -3,7 +3,12 @@ project(CPP-NOI-XXXAS01)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(CPP-NOI-XXXAS01 src/main.cpp)
+add_executable(CPP-NOI-XXXAS01 src/main.cpp
+        src/GEEK/专题系列/DP/04DP升维/02次数升维/GESP_G7_202409_2_Moving_Matrix_PV.cpp
+        src/GEEK/专题系列/DP/04DP升维/02次数升维/GESP_G7_202409_2_Moving_Matrix.cpp
+        src/GEEK/专题系列/DP/04DP升维/02次数升维/GESP_G7_202409_2_Moving_Matrix_OP.cpp
+        src/GEEK/专题系列/DP/04DP升维/02次数升维/GESP_G7_202409_2_Moving_Matrix_OP2.cpp
+        src/GEEK/专题系列/DP/04DP升维/02次数升维/GESP_G7_202409_2_Moving_Matrix_OP3.cpp)
 # 递归遍历所有的 cpp 文件
 file(GLOB_RECURSE files "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
 
@@ -17,13 +22,7 @@ foreach (file ${files})
     if (${founded} EQUAL 0)
         # 如果找到了 main 函数，则创建可执行文件
         get_filename_component(name ${file} NAME)
-        add_executable(${name} ${file}
-                src/EMME/DP/升维/XRS_Monkey_Taking_Sweets.cpp
-                src/EMME/DP/升维/Monkey_Taking_Sweets_Two_Var_Optimization.cpp
-                src/EMME/DP/升维/LC0121_best-time-to-buy-and-sell-stock.cpp
-                src/EMME/DP/升维/LC0309_best-time-to-buy-and-sell-stock-with-cooldown.cpp
-                src/EMME/DP/升维/LC0122_best-time-to-buy-and-sell-stock-ii.cpp
-                src/EMME/DP/升维/LC0714_best-time-to-buy-and-sell-stock-with-transaction-fee.cpp)
+        add_executable(${name} ${file})
         message(\ \ \ \ --\ src/${name}\ will\ be\ compiled\ to\ bin/${name})
     endif ()
 endforeach ()
