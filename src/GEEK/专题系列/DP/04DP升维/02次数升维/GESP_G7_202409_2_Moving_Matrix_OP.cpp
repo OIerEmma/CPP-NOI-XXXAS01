@@ -28,9 +28,9 @@ int main() {
                     if (g[i][j-1] == '1') dp[j][k] = max(dp[j][k], dp[j-1][k]) + 1; // max(不改从上边来,不改从左边来) + 1
                     if (g[i][j-1] == '0') dp[j][k] = max(dp[j][k], dp[j-1][k]); // max(不改从上边来,不改从左边来)
                     if (g[i][j-1] == '?') {
-                      if (!k) dp[j][k] = max(dp[j][k], dp[j-1][k]);
-                      // max(max(不改从上边来, 不改从左边来), max(改从上边来, 改从左边来)+1)
-                      else dp[j][k] = max(max(dp[j][k], dp[j-1][k]), max(dp[j][k-1], dp[j-1][k-1]) + 1);
+                        if (!k) dp[j][k] = max(dp[j][k], dp[j-1][k]);
+                        // max(max(不改从上边来, 不改从左边来), max(改从上边来, 改从左边来)+1)
+                        else dp[j][k] = max(max(dp[j][k], dp[j-1][k]), max(dp[j][k-1], dp[j-1][k-1]) + 1);
                     }
                 }
             }
