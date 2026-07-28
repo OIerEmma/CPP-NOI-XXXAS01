@@ -25,10 +25,13 @@ int main() {
         for (int i = 0; i < n; i++) {
             for (int j = 1; j <= m; j++) {
                 for (int k = K; k >= 0; k--) {
-                    if (g[i][j-1] == '1') dp[j][k] = max(dp[j][k], dp[j-1][k]) + 1; // max(不改从上边来,不改从左边来) + 1
-                    if (g[i][j-1] == '0') dp[j][k] = max(dp[j][k], dp[j-1][k]); // max(不改从上边来,不改从左边来)
+                    if (g[i][j-1] == '1') dp[j][k] = max(dp[j][k], dp[j-1][k]) + 1; // 无需修改：max(不改从上边来,不改从左边来) + 1
+                    if (g[i][j-1] == '0') dp[j][k] = max(dp[j][k], dp[j-1][k]); // 无需修改：max(不改从上边来,不改从左边来)
                     if (g[i][j-1] == '?') {
+                        // k=0时表示已修改0次，那么只能从已修改0次(即不修改)的状态转移而来
                         if (!k) dp[j][k] = max(dp[j][k], dp[j-1][k]);
+                        // 不修改当前格子：max(不改从上边来, 不改从左边来) 即 max(dp[j][k], dp[j-1][k])
+                        // 修改当前格子：max(改从上边来, 改从左边来) 即 max(dp[j][k-1], dp[j-1][k-1]) + 1
                         // max(max(不改从上边来, 不改从左边来), max(改从上边来, 改从左边来)+1)
                         else dp[j][k] = max(max(dp[j][k], dp[j-1][k]), max(dp[j][k-1], dp[j-1][k-1]) + 1);
                     }
