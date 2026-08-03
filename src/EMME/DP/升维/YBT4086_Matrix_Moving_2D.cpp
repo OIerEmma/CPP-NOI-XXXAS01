@@ -30,7 +30,7 @@ int main() {
         for (int i = 0; i < n; i++) {
             // 上一行，仅 i>0 时有效
             if (i > 0) {
-                int **prev_row = dp;                     // 保存上一行
+                // vector<int> prev_row = dp;                     // 保存上一行
                 memset(dp, 0xc0, sizeof dp);  // 重置
             }
 
@@ -40,12 +40,12 @@ int main() {
                 for (int k = 0; k <= K; k++) {
                     // 不修改，k 不变
                     int from_k = NEG;
-                    if (i > 0) from_k = max(from_k, prev_row[j][k]); // 上方
+                    // if (i > 0) from_k = max(from_k, prev_row[j][k]); // 上方
                     if (j > 0) from_k = max(from_k, dp[j - 1][k]);   // 左方
                     // 用一次修改，k-1 -> k
                     int from_km1 = NEG;
                     if (k >= 1) {
-                        if (i > 0) from_km1 = max(from_km1, prev_row[j][k - 1]);
+                        // if (i > 0) from_km1 = max(from_km1, prev_row[j][k - 1]);
                         if (j > 0) from_km1 = max(from_km1, dp[j - 1][k - 1]);
                     }
 
