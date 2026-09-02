@@ -8,12 +8,12 @@ const int MAXN = 100005;
 vector<int> g[MAXN], a(MAXN), down(MAXN), up(MAXN);
 
 void dfsDown(int start, int fa) {
-    down[start] = 1;
     for (int v : g[start])
         if (fa != v) {
             dfsDown(v, start);
             if (a[v] < a[start]) down[start] += down[v];
         }
+    down[start]++;
 }
 
 void dfsUp(int start, int fa) {

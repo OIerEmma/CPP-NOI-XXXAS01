@@ -15,8 +15,7 @@ void bfs(int start, int k) {
         s.clear();
         int levelSize = (int)q.size();
         for (int i = 1; i <= levelSize; i++) {
-            int now = q.front();
-            q.pop();
+            int now = q.front(); q.pop();
             for (int v : g[now])
                 if (!s.count(v)) q.push(v), s.insert(v);
         }

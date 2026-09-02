@@ -6,9 +6,9 @@ int col[N], num[N];
 int ans, sum;
 
 void calc(int start, int fa) {
-    num[start] += col[start];
     for (int v : g[start])
         if (fa != v) calc(v, start), num[start] += num[v];
+    num[start] += col[start];
 }
 
 void dfs(int start, int fa) {
@@ -16,8 +16,8 @@ void dfs(int start, int fa) {
     if (num[start] != 0 && num[start] != sum) flag = true;
     for (int v : g[start])
         if (fa != v) {
-            dfs(v, start);
             if (num[v] != 0 && num[v] != num[start] - col[start]) flag = true;
+            dfs(v, start);
         }
     if (flag && !col[start]) ans++;
 }
