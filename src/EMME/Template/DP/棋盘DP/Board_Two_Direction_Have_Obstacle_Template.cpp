@@ -1,6 +1,6 @@
 //
 // Created by Emme.Kwok on 2026/7/18.
-//
+// https://leetcode.cn/problems/unique-paths-ii/description/
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -12,10 +12,21 @@ int main() {
     vector<vector<long long>> dp(n + 1, vector<long long>(m + 1, 0));
     for (int i = 1; i <= n; i++)
         for (int j = 1; j <= m; j++) cin >> a[i][j];
+    // 初始化
     for (int i = 1; i <= n; i++)
         for (int j = 1; j <= m; j++)
-            // 求最小路径和用min（注意初值用INF）
-            dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]) + a[i][j];
+            if (!a[i][j]) { // 无障碍
+                if (i == 1 && j == 1) dp[i][j] = 1;
+                else dp[i][j] += dp[i - 1][j] + dp[i][j - 1];
+            }
     cout << dp[n][m] << endl;
     return 0;
 }
+/*
+5 5
+1 0 1 1 0
+1 1 1 1 0
+0 1 0 1 1
+0 1 0 0 1
+0 1 1 1 1
+*/

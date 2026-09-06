@@ -10,6 +10,7 @@ int main() {
     vector<int> w(n + 1), v(n + 1), m(n + 1);
     for (int i = 1; i <= n; i++) {
         cin >> w[i] >> v[i] >> m[i];
+        // 如果是无限个，个数标记为一个很大的数认为是无限个
         if (!m[i]) m[i] = 1e3;
     }
     vector<int> dp(W + 1, 0);

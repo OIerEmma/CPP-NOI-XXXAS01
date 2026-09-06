@@ -11,6 +11,7 @@ int main() {
     vector<int> dp(W + 1, 0);
     for (int i = 1; i <= n; i++) {
         cin >> w[i] >> v[i] >> m[i];
+        // 如果是无限个，正序做，否则反向遍历
         if (!m[i]) {
             for (int j = w[i]; j <= W; j++)
                 dp[j] = max(dp[j], dp[j - w[i]] + v[i]);

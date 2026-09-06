@@ -1,5 +1,5 @@
 //
-// Created by Emme.Kwok on 2026/7/18.
+// Created by Emme.Kwok on 2026/9/6.
 //
 #include<bits/stdc++.h>
 using namespace std;
@@ -9,7 +9,6 @@ int main() {
     cin >> n;
     vector<int> a(n);
     for (int i = 0; i < n; i++) cin >> a[i];
-    // 状态：dp[i]代表以第i个数字为结尾，最长上升子序列（LIS）的长度
     vector<int> dp(n + 1, 1);
     int ans = 0;
     for (int i = 1; i < n; i++) {

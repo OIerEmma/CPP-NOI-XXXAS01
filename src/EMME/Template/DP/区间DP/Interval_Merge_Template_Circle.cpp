@@ -1,6 +1,6 @@
 //
 // Created by Emme.Kwok on 2026/7/18.
-//
+// https://www.luogu.com.cn/problem/P1880
 #include<bits/stdc++.h>
 using namespace std;
 
