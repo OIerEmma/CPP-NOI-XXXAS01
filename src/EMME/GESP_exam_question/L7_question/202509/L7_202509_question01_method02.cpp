@@ -14,11 +14,11 @@ int find(int x) {
 int main() {
     int n, m;
     cin >> n >> m;
-    for (int i = 1; i <= n; i++) fa[i] = i;
+    for (int i = 1; i <= n; i++) fa[i] = i; // init
     for (int i = 1, u, v; i <= m; i++) {
         cin >> u >> v;
-        int fu = find(u), fv = find(v);
-        if (fu != fv) fa[fu] = fv;
+        int fu = find(u), fv = find(v); // find
+        if (fu != fv) fa[fu] = fv; // unite
     }
     int ans = 0;
     for (int i = 1; i <= n; i++)
