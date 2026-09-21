@@ -4,8 +4,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 int main() {
-    // freopen("G_pingpong.in", "r", stdin);
-    // freopen("G_pingpong.out", "w", stdout);
+    // freopen("g_pingpong.in", "r", stdin);
+    // freopen("g_pingpong.out", "w", stdout);
     ios::sync_with_stdio(false);
     cin.tie(nullptr), cout.tie(nullptr);
     // 下面开始写本题
