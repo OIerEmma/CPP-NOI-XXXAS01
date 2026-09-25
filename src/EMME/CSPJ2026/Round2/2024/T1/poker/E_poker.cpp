@@ -3,6 +3,7 @@
 //
 #include <bits/stdc++.h>
 using namespace std;
+
 int main() {
     // freopen("E_poker.in", "r", stdin);
     // freopen("E_poker.out", "w", stdout);
@@ -11,11 +12,11 @@ int main() {
     int n;
     string s;
     cin >> n;
-    map<string, int> mp;
+    set<string> ans;
     for (int i = 1; i <= n; i++) {
         cin >> s;
-        mp[s]++;
+        ans.insert(s);
     }
-    cout << 52 - mp.size() << endl;;
+    cout << 52 - ans.size() << endl;;
     return 0;
 }
