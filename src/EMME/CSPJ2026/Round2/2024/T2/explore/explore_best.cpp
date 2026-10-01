@@ -18,20 +18,14 @@ int main() {
         cin >> n >> m >> k >> x >> y >> d;
         for (int i = 1; i <= n; i++)
             for (int j = 1; j <= m; j++) cin >> mp[i][j];
-        s.clear();
-        s.insert({x, y});
+        s.clear(); s.insert({x, y});
         int nd = d;
-        for (int i = 1; i <= k; i++) {
+        while (k--) {
             int nx = x + dir[nd][0], ny = y + dir[nd][1];
-            while (nx < 1 || nx > n || ny < 1 || ny > m || mp[nx][ny] == 'x') {
-                nd = (nd + 1) % 4;
-                nx = x + dir[nd][0], ny = y + dir[nd][1];
-                i++;
-                if (i > k) break;
-            }
-            if (i > k) break;
-            x = nx, y = ny;
-            s.insert({x, y});
+            if (nx >= 1 && nx <= n && ny >= 1 && ny <= m && mp[nx][ny] == '.') {
+                s.insert({nx, ny});
+                x = nx, y = ny;
+            } else nd = (nd + 1) % 4;
         }
         cout << s.size() << "\n";
     }
