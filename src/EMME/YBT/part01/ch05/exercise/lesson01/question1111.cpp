@@ -22,7 +22,9 @@ int main() {
     int v = Tmax[0];
     if (count == 0) {
         cout << 0 << endl;
-    } else if (count > 0){
+        return 0;
+    }
+    if (count > 0){
         for (int i = 0; i < 7; i++) {
             if (v < Tmax[i]) {
                 v = Tmax[i];
