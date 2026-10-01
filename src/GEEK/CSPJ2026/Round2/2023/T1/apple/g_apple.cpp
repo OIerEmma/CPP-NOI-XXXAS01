@@ -14,7 +14,8 @@ int main() {
     int days = 0, dayN = 0, r = n;
     while (r > 0) {
         days++;
-        if (dayN == 0 && r % 3 == 1) dayN = days;
+        // if (dayN == 0 && r % 3 == 1) dayN = days;
+        if (r % 3 == 1) dayN = days;
         r -= (r + 2) / 3;
     }
     cout << days << " " << dayN << endl;
