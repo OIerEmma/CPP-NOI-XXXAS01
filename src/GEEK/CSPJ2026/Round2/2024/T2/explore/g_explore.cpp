@@ -5,13 +5,13 @@
 using namespace std;
 
 int main() {
-    int d[][4] = {{0,1},{1,0},{0,-1},{-1,0}};
+    int d[][2] = {{0,1},{1,0},{0,-1},{-1,0}};
     set<pair<int, int>> us;
     int T; cin >> T;
     while (T--) {
         int n, m, k, x0, y0, d0;
         cin >> n >> m >> k >> x0 >> y0 >> d0;
-        vector<string> mp(n + 1);
+        vector<string> mp(n); // mp 0-based
         us.clear();
         for (int i = 0; i < n; i++) cin >> mp[i];
         // 机器人开始在地图上行走
