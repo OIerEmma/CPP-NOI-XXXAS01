@@ -31,7 +31,8 @@ int main() {
             }
             if (!free) {
                 ans += t[i][1];
-            } else if (prev != -1) {
+            }
+            if (free && prev != -1) {
                 t[prev][3] = 1;
             }
         }
