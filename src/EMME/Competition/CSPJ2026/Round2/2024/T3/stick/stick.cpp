@@ -18,11 +18,11 @@ int main() {
             string ans;
             int rest = n;
             for (int pos = 1; pos <= len; pos++) {
-                int remain = len - pos;
-                for (int dg = (pos == 1 ? 1 : 0); dg <= 9; dg++) {
-                    int r = rest - c[dg];
-                    if (r >= 2 * remain && r <= 7 * remain) {
-                        ans += char('0' + dg);
+                int remain = len - pos; // 剩余的位数
+                for (int dg = (pos == 1 ? 1 : 0); dg <= 9; dg++) { // 贪心：从小到大的尝试数字并确保剩余小木棍可以拼出剩余数字
+                    int r = rest - c[dg]; // 剩余的小木棍数量
+                    if (r >= 2 * remain && r <= 7 * remain) { // 剩余小木棍r可以拼出剩余数字
+                        ans += (char)('0' + dg);
                         rest = r;
                         break;
                     }
