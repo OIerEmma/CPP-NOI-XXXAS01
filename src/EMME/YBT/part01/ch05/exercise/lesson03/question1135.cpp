@@ -9,7 +9,7 @@ int main() {
     cin >> n;
     for (int i = 0; i < n.size(); i++) {
         if (n[i] == 'A') {
-            printf("T");
+            printf("T3");
         } else if (n[i] == 'T') {
             printf("A");
         } else if (n[i] == 'G') {

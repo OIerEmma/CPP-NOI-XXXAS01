@@ -18,8 +18,7 @@ foreach (file ${files})
     if (${founded} EQUAL 0)
         # 如果找到了 main 函数，则创建可执行文件
         get_filename_component(name ${file} NAME)
-        add_executable(${name} ${file}
-                src/EMME/Competition/CSPJ2026/Round2/2025/T3/yihuo_sum/yihuo_sum_best.cpp)
+        add_executable(${name} ${file})
         message(\ \ \ \ --\ src/${name}\ will\ be\ compiled\ to\ bin/${name})
     endif ()
 endforeach ()

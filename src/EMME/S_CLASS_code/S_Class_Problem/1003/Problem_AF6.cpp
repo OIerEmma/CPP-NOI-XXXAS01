@@ -10,7 +10,7 @@ int main() {
     string ans;
     for (int i = 0; i < s.size(); i++) {
         if (s[i] == 'A') {
-            ans += "T";
+            ans += "T3";
         } else if (s[i] == 'T') {
             ans += "A";
         } else if (s[i] == 'C') {

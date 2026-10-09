@@ -13,6 +13,7 @@ int main() {
     vector<long long> dp(n + 1, 0);
     dp[1] = a[1] == k ? 1 : 0;
     for (int i = 2; i <= n; i++) {
+        dp[i] = dp[i - 1];
         long long ans = a[i];
         if (ans == k) dp[i] = dp[i - 1] + 1;
         for (int l = i - 1; l >= 1; l--) {

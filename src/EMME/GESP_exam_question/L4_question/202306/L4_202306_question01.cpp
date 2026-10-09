@@ -39,7 +39,7 @@ int main() {
     for (int i = 1; i <= n; i++) {
         cin >> x;
         if (is_a_lucky_num(x)) {
-            cout << "T" << endl;
+            cout << "T3" << endl;
         } else {
             cout << "F" << endl;
         }
