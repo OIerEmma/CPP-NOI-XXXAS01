@@ -3,8 +3,7 @@ project(CPP-NOI-XXXAS01)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(CPP-NOI-XXXAS01 src/main.cpp
-        src/GEEK/Competitions/CSPJ2026/Round2/2021/T3/network/g_network.cpp)
+add_executable(CPP-NOI-XXXAS01 src/main.cpp)
 
 # 递归遍历所有的 cpp 文件
 file(GLOB_RECURSE files "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
