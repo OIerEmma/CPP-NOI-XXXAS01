@@ -5,10 +5,8 @@
 using namespace std;
 
 int main() {
-    freopen("g_poker.in", "r", stdin);
-    freopen("g_poker.out", "w", stdout);
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr), cout.tie(nullptr);
+    freopen("g_poker.in", "r", stdin); freopen("g_poker.out", "w", stdout);
+    ios::sync_with_stdio(false); cin.tie(nullptr), cout.tie(nullptr);
     // 下面开始写本题
     return 0;
 }
