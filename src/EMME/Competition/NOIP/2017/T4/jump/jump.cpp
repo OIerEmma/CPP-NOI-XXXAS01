@@ -5,8 +5,7 @@
 using namespace std;
 
 const int NEG = -1e9, R = 1e9 + 2000;
-int n;
-long long d, k;
+int n, d, k;
 
 bool check(long long g, vector<int> x, vector<int> s) {
     int l, r;
