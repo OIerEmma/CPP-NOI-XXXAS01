@@ -14,18 +14,12 @@ int main() {
         bool isFirstElement = true;
         int prevE = -1;
         for (auto it = l.begin(); it != l.end(); ) {
-            if (isFirstElement) {
-                printf("%d ", (*it).second);
-                isFirstElement = false;
-                prevE = (*it).first;
-                l.erase(it++);
-            } else if (prevE != (*it).first) {
+            if (isFirstElement || prevE != (*it).first) {
+                if (isFirstElement) isFirstElement = false;
                 printf("%d ", (*it).second);
                 prevE = (*it).first;
                 l.erase(it++);
-            } else {
-                ++it;
-            }
+            } else ++it;
         }
         printf("\n");
     }
