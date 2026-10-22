@@ -9,23 +9,25 @@ int main() {
     cin.tie(nullptr), cout.tie(nullptr);
     int n;
     cin >> n;
-    list<int> a;
+    list<pair<int, int>> a;
     for (int i = 1, x; i <= n; i++) {
         cin >> x;
-        a.push_back(x);
+        a.push_back({x, i});
     }
     while (!a.empty()) {
-        int last = 0, i = 1;
-        auto it = a.begin(), d = a.begin();
-        while (it != a.end()) {
-            if (it == a.begin()) {
-                last = *it;
-            } else if (*it != last) {
-                a.erase(d);
-                d = it;
-                cout << i << " ";
-            }
-            it++; i++;
+        bool is = true;
+        int prev = -1;
+        for (auto it = a.begin(); it != a.end(); ) {
+            if (is) {
+                cout << (*it).second << " ";
+                prev = (*it).first;
+                a.erase(it++);
+                is = false;
+            } else if (prev != (*it).first) {
+                cout << (*it).second << " ";
+                prev = (*it).first;
+                a.erase(it++);
+            } else it++;
         }
         cout << "\n";
     }
