@@ -3,7 +3,9 @@ project(CPP-NOI-XXXAS01)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(CPP-NOI-XXXAS01 src/main.cpp)
+add_executable(CPP-NOI-XXXAS01 src/main.cpp
+        src/GEEK/Competitions/Templates/g_code_framework.cpp
+        src/GEEK/Competitions/Templates/g_io_framework.cpp)
 
 # 递归遍历所有的 cpp 文件
 file(GLOB_RECURSE files "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
