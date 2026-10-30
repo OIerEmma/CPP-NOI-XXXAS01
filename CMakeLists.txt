@@ -3,11 +3,7 @@ project(CPP-NOI-XXXAS01)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(CPP-NOI-XXXAS01 src/main.cpp
-        src/GEEK/Competitions/Templates/06_Greedy/g_greedy_sort.cpp
-        src/GEEK/Competitions/Templates/04_Mathematics/g_accurate_sqrt.cpp
-        src/GEEK/Competitions/Templates/04_Mathematics/g_use_formula.cpp
-        src/GEEK/Competitions/Templates/09_Data_Structure/g_stack_and_expression.cpp)
+add_executable(CPP-NOI-XXXAS01 src/main.cpp)
 
 # 递归遍历所有的 cpp 文件
 file(GLOB_RECURSE files "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
