@@ -53,20 +53,17 @@ ll countWays01() {
 
 // 多重背包转01背包（第i件最多cntLimit[i]个）：二进制拆分成若干件01物品
 ll knapsackMulti() {
-    vector<int> ww, vv;
+    memset(dp, 0, sizeof dp);
     for (int i = 1; i <= nItem; i++) {
         int c = cntLimit[i];
         for (int k = 1; c > 0; k *= 2) { // 拆成 1，2，4，...，剩余
             int take = min(c, k);
-            ww.push_back(take * w[i]);
-            vv.push_back(take * v[i]);
+            int ww = take * w[i], vv = take * v[i];
+            for (int j = V; j >= ww; j--)
+                dp[j] = max(dp[j], dp[j - ww] + vv);
             c -= take;
         }
     }
-    memset(dp, 0, sizeof dp);
-    for (size_t i = 0; i < ww.size(); i++)
-        for (int j = V; j >= ww[i]; j--)
-            dp[j] = max(dp[j], dp[j - ww[i]] + vv[i]);
     return dp[V];
 }
 
