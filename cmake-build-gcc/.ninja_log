@@ -1,7 +1,0 @@
-# ninja log v6
-68	2483	1793332502386926069	CMakeFiles/g_fill_box.cpp.dir/src/GEEK/Competitions/NOIPJ2026/2001/T4/g_fill_box.cpp.o	9f9e695856187b5c
-69	2493	1793343894086255541	CMakeFiles/g_set_flowers_op2_rolling_array.cpp.dir/src/GEEK/Competitions/NOIPJ2026/2012/T3/g_set_flowers_op2_rolling_array.cpp.o	95ebc50099463dd9
-2486	2681	1793332504805081901	g_fill_box.cpp	823727270ae6aebf
-64	2337	1793342747095968331	CMakeFiles/g_set_flowers_op1.cpp.dir/src/GEEK/Competitions/NOIPJ2026/2012/T3/g_set_flowers_op1.cpp.o	ea044f62c254476
-2338	2515	1793342749370001908	g_set_flowers_op1.cpp	6f4fbfc60f6064fd
-2493	2668	1793343896510504431	g_set_flowers_op2_rolling_array.cpp	f1e151f00c56d0fd
